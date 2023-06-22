@@ -16,11 +16,6 @@ public class SequenceAnalyser : ISequenceAnalyser
         };
     }
 
-    private float CalculateHydrophobicity(Sequence sequence)
-    {
-
-    }
-
     private int CalculateSequenceLength(Sequence sequence)
     {
 
@@ -28,9 +23,16 @@ public class SequenceAnalyser : ISequenceAnalyser
 
     private float CalculateMolecularWeight(Sequence sequence) 
     {  
+
     }
 
-    private float CalculateIsoelectricPoint(Sequence sequence)
+    private Dictionary<string, float> CalculateAminoAcidComposition(Sequence sequence)
     {
+
+    }
+
+    private float CalculateHydrophobicity(Sequence sequence)
+    {
+
     }
 }

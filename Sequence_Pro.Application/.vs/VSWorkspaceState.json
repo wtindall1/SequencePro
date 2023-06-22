@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Interfaces",
     "\\Models",
     "\\Services"
   ],
-  "SelectedNode": "\\Services\\UniprotAPI.cs",
+  "SelectedNode": "\\Interfaces\\ISequenceAnalyser.cs",
   "PreviewInSolutionExplorer": false
 }

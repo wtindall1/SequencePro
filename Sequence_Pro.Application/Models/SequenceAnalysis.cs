@@ -12,5 +12,5 @@ public class SequenceAnalysis
 
     public required float molecularWeight { get; set; }
 
-    public required float isoelectricPoint { get; set; }
+    public required Dictionary<string, float> { get; set; }
 }
