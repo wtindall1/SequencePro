@@ -1,2 +1,2 @@
-# sequence_pro
+ # sequence_pro
 Protein Sequence Analyser

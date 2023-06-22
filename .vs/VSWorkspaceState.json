@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Application",
-    "\\Application\\Interfaces",
-    "\\Application\\Services"
+    "\\Sequence_Pro.Application",
+    "\\Sequence_Pro.Application\\Interfaces",
+    "\\Sequence_Pro.Application\\Models",
+    "\\Sequence_Pro.Application\\Services"
   ],
-  "SelectedNode": "\\Application\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
