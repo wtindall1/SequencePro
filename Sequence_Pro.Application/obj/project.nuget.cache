@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fSeImkXWsXoUEx9fgdnnRthbxAcA0Lal8E3jwhl5VN/nuL2EYmW5IKMtK0VmRcOi4RVf89jHUO0o1UPJs/gY7Q==",
+  "dgSpecHash": "lRSuS0vS1abWSVeprn7TS9EOtlPxtiDyJrdX+U2HFwzmh0QjmlkwAvAwMDG1UKJHo2RWw55u208BktZCJGA82A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Will.Tindall\\Source\\Repos\\sequence_pro\\Sequence_Pro.Application\\Application.csproj",
+  "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.1\\microsoft.netcore.platforms.1.1.1.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
