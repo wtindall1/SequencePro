@@ -21,32 +21,33 @@ public class SequenceAnalyser : ISequenceAnalyser
 
     private double CalculateMolecularWeight(Sequence sequence) 
     {  
-        //unit is Daltons
+        //Daltons, average isotopic mass
         var aminoAcidWeights = new Dictionary<char, double>
         {
-            {'A', 89.09},
-            {'R', 174.20},
-            {'N', 132.12},
-            {'D', 133.10},
-            {'C', 121.15},
-            {'E', 147.13},
-            {'Q', 146.15},
-            {'G', 75.07},
-            {'H', 155.16},
-            {'I', 131.17},
-            {'L', 131.17},
-            {'K', 146.19},
-            {'M', 149.21},
-            {'F', 165.19},
-            {'P', 115.13},
-            {'S', 105.09},
-            {'T', 119.12},
-            {'W', 204.23},
-            {'Y', 181.19},
-            {'V', 117.15}
+            {'A', 71.0788},
+            {'R', 156.1875},
+            {'N', 114.1038},
+            {'D', 115.0886},
+            {'C', 103.1388},
+            {'E', 129.1155},
+            {'Q', 128.1307},
+            {'G', 57.0519},
+            {'H', 137.1411},
+            {'I', 113.1594},
+            {'L', 113.1594},
+            {'K', 128.1741},
+            {'M', 131.1926},
+            {'F', 147.1766},
+            {'P', 97.1167},
+            {'S', 87.0782},
+            {'T', 101.1051},
+            {'W', 186.2132},
+            {'Y', 163.1760},
+            {'V', 99.1326}
         };
 
-        double molecularWeight = 0;
+        //starts with mass of a single water molecule (convention due to 1 water molecule released per peptide bond formed)
+        double molecularWeight = 18.0153;
 
         foreach (char aminoAcid in sequence.aminoAcidSequence)
         {

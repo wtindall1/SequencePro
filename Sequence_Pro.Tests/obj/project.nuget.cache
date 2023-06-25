@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AV0fzGuxGOH2MKlYz9rFy4vIYzZqEgli8qGebAis1EK2vEWQTdFGJkpFqaY+Qxa92srKp3UrqCuWOqKFhtU8EQ==",
+  "dgSpecHash": "M+klZYXtdfnHyta3CIPTIpNQSeJRxJUYvrheQ3CWmAjIaOrOZlucur/pOfyfSyEFhI5urNx9WtVtvy/gTQZGlQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Will.Tindall\\Source\\Repos\\sequence_pro\\Sequence_Pro.Tests\\Sequence_Pro.Tests.csproj",
+  "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Tests\\Sequence_Pro.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",
