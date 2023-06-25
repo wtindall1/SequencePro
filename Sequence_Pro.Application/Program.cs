@@ -9,6 +9,7 @@ public class Program
 {
 	public static async Task Main()
 	{
+
 		var uniprot = new UniprotAPI();
 		var sequence = await uniprot.GetSequenceDetails("P12345", new HttpClient());
 		var sequenceAnalyser = new SequenceAnalyser();

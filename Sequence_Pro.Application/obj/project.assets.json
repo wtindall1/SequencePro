@@ -2884,11 +2884,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Will.Tindall\\Source\\Repos\\sequence_pro\\Sequence_Pro.Application\\Application.csproj",
-      "projectName": "Application",
-      "projectPath": "C:\\Users\\Will.Tindall\\Source\\Repos\\sequence_pro\\Sequence_Pro.Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Application\\Sequence_Pro.Application.csproj",
+      "projectName": "Sequence_Pro.Application",
+      "projectPath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Application\\Sequence_Pro.Application.csproj",
       "packagesPath": "C:\\Users\\Will.Tindall\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Will.Tindall\\Source\\Repos\\sequence_pro\\Sequence_Pro.Application\\obj\\",
+      "outputPath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Will.Tindall\\AppData\\Roaming\\NuGet\\NuGet.Config",

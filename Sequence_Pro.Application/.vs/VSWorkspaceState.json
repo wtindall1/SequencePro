@@ -1,10 +1,6 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Interfaces",
-    "\\Models",
-    "\\Services"
+    ""
   ],
-  "SelectedNode": "\\Interfaces\\ISequenceAnalyser.cs",
   "PreviewInSolutionExplorer": false
 }

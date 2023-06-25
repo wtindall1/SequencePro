@@ -1,0 +1,11 @@
+sequence & sequenceanalysis:
+-what tests can be done for the models?
+
+
+uniprotAPI:
+- Getsequence details returns sequence object
+- Getsequence details throws error if invalid identifier used
+
+SequenceAnalyser:
+- Analyse method - check that the SequenceAnalysis properties returned match expected
+

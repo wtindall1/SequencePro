@@ -4,7 +4,8 @@
     "\\Sequence_Pro.Application",
     "\\Sequence_Pro.Application\\Interfaces",
     "\\Sequence_Pro.Application\\Models",
-    "\\Sequence_Pro.Application\\Services"
+    "\\Sequence_Pro.Application\\Services",
+    "\\Sequence_Pro.Tests"
   ],
   "PreviewInSolutionExplorer": false
 }
