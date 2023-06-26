@@ -1,32 +1,39 @@
 using System;
 using Xunit;
-using Sequence_Pro.Application.Services;
-using Sequence_Pro.Application.Models;
 using System.Runtime.CompilerServices;
+using Sequence_Pro.Application.Models;
+using Sequence_Pro.Application.Services;
 
 
 namespace Sequence_Pro.Tests;
 
 
-public class Test_SequenceAnalyser : IClassFixture<HttpClientFixture>
+public class Test_SequenceAnalyser
 {
-    private readonly HttpClient _httpClient;
+    private readonly Sequence _sequence;
+    private readonly SequenceAnalyser _sequenceAnalyser;
 
-    public Test_SequenceAnalyser(HttpClientFixture httpClientFixture)
+    public Test_SequenceAnalyser()
     {
-        _httpClient = httpClientFixture.httpClient;
+        //create sequence object to pass to Analyse()
+        _sequence = new Sequence
+        {
+            uniqueIdentifier = "P12563",
+            entryName = "HN_PI3HU",
+            proteinName = "Hemagglutinin-neuraminidase",
+            organismName = "Human parainfluenza 3 virus (strain Tex/9305/82)",
+            aminoAcidSequence = "MEYWKHTNHRKDAGNELETSMATHGNKLTNKITYILWTIILVLLSIVLIIVLINSIKSEKAHESLLQDINNEFMEITEKIQMASDNTNDLIQSGVNTRLLTIQSHVQNYIPISLTQQMSDLRKFISEIIIRNDNQEVPPQRITHDVGIKPLNPDDFWRCTSGLPSLMKTPKIRLMPGPGLLTMPTTVDGCVRTPSLVINDLIYAYTSNLITRGCQDIGKSYQVLQIGIITVNSDLVPDLNPRISHTFNINDNRKSCSLALLNTDVYQLCSTPKVDERSDYASSGIEDIVLDIVNYDGSISTTRFKNNNISFDQPYAALYPSVGPGIYYKGKIIFLGYGGLEHPINENVICNTTGCPGKTQRDCNQASHSPWFSDRRMVNSIIVVDKGLNSIPKLKVWTISMRQNYWGSEGRLLLLGNKIYIYTRSTSWHSKLQLGIIDITDYSDIRIKWTWHNVLSRPGNNECPWGHSCPDGCITGVYTDAYPLNPTGSIVSSVILDSQKSRVNPVITYSTATERVNELAIRNKTLSAGYTTTSCITHYNKGYCFHIVEINHKSLDTFQPMLFKTEVPKSCS"
+        };
+
+        _sequenceAnalyser = new SequenceAnalyser();
+        
     }
 
     [Fact]
     public async void Test_SequenceAnalyser_Analyse_Molecular_Weight()
     {
-        var uniprotAPI = new UniprotAPI();
-        var sequence = await uniprotAPI.GetSequenceDetails("P12563", _httpClient);
+        SequenceAnalysis analysis = _sequenceAnalyser.Analyse(_sequence);
 
-        var sequenceAnalyser = new SequenceAnalyser();
-        var sequenceAnalysis = sequenceAnalyser.Analyse(sequence);
-
-        Assert.True(Math.Round(sequenceAnalysis.molecularWeight, 2) == 64394.58, $"Molecular weight was {sequenceAnalysis.molecularWeight} vs expected: 64394.58");
-
+        Assert.True(analysis.molecularWeight == 64394.58, $"Molecular weight calculated was: {analysis.molecularWeight}, vs expected: 64394.58");
     }
 }

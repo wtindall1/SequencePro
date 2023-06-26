@@ -11,7 +11,7 @@ public class Program
 	{
 
 		var uniprot = new UniprotAPI();
-		var sequence = await uniprot.GetSequenceDetails("P12345", new HttpClient());
+		var sequence = await uniprot.GetSequenceDetails("P12563", new HttpClient());
 		var sequenceAnalyser = new SequenceAnalyser();
 
 		SequenceAnalysis analysis = sequenceAnalyser.Analyse(sequence);

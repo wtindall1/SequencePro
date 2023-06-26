@@ -62,7 +62,7 @@ public class SequenceAnalyser : ISequenceAnalyser
             }
         }
 
-        return molecularWeight;
+        return Math.Round(molecularWeight,2);
     }
 
 
