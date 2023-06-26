@@ -75,7 +75,7 @@ public class SequenceAnalyser : ISequenceAnalyser
         foreach (char aminoAcid in aminoAcids)
         {
             var count = sequence.aminoAcidSequence.Where(x => x == aminoAcid).Count();
-            aminoAcidComposition[aminoAcid] = (double)count / sequence.aminoAcidSequence.Length;
+            aminoAcidComposition[aminoAcid] = Math.Round((double)count / sequence.aminoAcidSequence.Length, 3);
         }
 
         return aminoAcidComposition;
