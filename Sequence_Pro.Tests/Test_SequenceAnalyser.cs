@@ -64,8 +64,6 @@ public class Test_SequenceAnalyser
             { 'W', 0.017 },
             { 'Y', 0.042 },
             { 'V', 0.056 },
-            { 'O', 0.0 },
-            { 'U', 0.0 }
         };
 
         Assert.True(DictionaryComparer.Equals(expectedAminoAcidComposition, analysis.aminoAcidComposition), "Calculated amino acid composition did not match expected.");
