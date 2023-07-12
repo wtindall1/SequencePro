@@ -2,9 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Interfaces",
-    "\\Models",
     "\\Services"
   ],
-  "SelectedNode": "\\Services\\SequenceAnalyser.cs",
   "PreviewInSolutionExplorer": false
 }

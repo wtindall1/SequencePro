@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "hIoRpoKxzsyuklGSrWHnvkOKThe9oalno9+1mUxjJA9Rp7QvXDQQ6CCA68K2yXDxhD4XWEkdU3QukUiREsYB/w==",
+  "dgSpecHash": "SLDdajTQ/77gziBFpq1sXGa76gxos2o567JudkgLMOnVdsAEEOXMIeQuyXkEze5vfpg1lJdmejt+cNfAdjssEQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Application\\Sequence_Pro.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.1\\microsoft.netcore.platforms.1.1.1.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

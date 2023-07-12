@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Sequence_Pro.API.props" />
+</Project>
