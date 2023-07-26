@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B5F5BCE2-61F5-4FAD-B035-0715D2EE070D}</ProjectGuid>
+    <ProjectGuid>{00000000-0000-0000-0000-000000000000}</ProjectGuid>
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>ClassLibrary</AssemblyName>
@@ -26,9 +26,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <RootNamespace>Sequence_Pro.Application</RootNamespace>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -37,33 +34,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ApplicationServiceCollectionExtensions.cs" />
-    <Compile Include="Interfaces\ISequenceAnalyser.cs" />
-    <Compile Include="Interfaces\IUniprotAPI.cs" />
-    <Compile Include="Models\Sequence.cs" />
-    <Compile Include="Models\SequenceAnalysis.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Services\SequenceAnalyser.cs" />
-    <Compile Include="Services\UniprotAPI.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".vs\Application\FileContentIndex\2408481d-5061-4178-af0f-d4745b1ced81.vsidx" />
-    <None Include=".vs\Application\FileContentIndex\read.lock" />
-    <None Include=".vs\Application\v17\.wsuo" />
-    <None Include=".vs\Sequence_Pro.Application\FileContentIndex\1cffa345-0350-409b-b66b-debf7e6007d9.vsidx" />
-    <None Include=".vs\Sequence_Pro.Application\FileContentIndex\2de90ea3-03e3-478e-aca6-6a4463bd8300.vsidx" />
-    <None Include=".vs\Sequence_Pro.Application\FileContentIndex\50acef52-8477-4d7d-b833-c5d167bd27e0.vsidx" />
-    <None Include=".vs\Sequence_Pro.Application\FileContentIndex\65601d63-e0c5-4b9f-b51b-2b7e12e2a1f8.vsidx" />
-    <None Include=".vs\Sequence_Pro.Application\FileContentIndex\read.lock" />
-    <None Include=".vs\Sequence_Pro.Application\v17\.wsuo" />
-    <None Include=".vs\slnx.sqlite" />
-    <None Include=".vs\VSWorkspaceState.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include=".vs\Application\FileContentIndex\merges\" />
-    <Folder Include=".vs\Sequence_Pro.Application\FileContentIndex\merges\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
