@@ -34,7 +34,7 @@ public class Test_SequenceAnalyser
     {
         SequenceAnalysis analysis = _sequenceAnalyser.Analyse(_sequence);
 
-        Assert.True(analysis.molecularWeight == 64394.58, $"Molecular weight calculated was: {analysis.molecularWeight}, vs expected: 64394.58");
+        Assert.True(analysis.MolecularWeight == 64394.58, $"Molecular weight calculated was: {analysis.MolecularWeight}, vs expected: 64394.58");
     }
 
     [Fact]
@@ -66,6 +66,6 @@ public class Test_SequenceAnalyser
             { 'V', 0.056 },
         };
 
-        Assert.True(DictionaryComparer.Equals(expectedAminoAcidComposition, analysis.aminoAcidComposition), "Calculated amino acid composition did not match expected.");
+        Assert.True(DictionaryComparer.Equals(expectedAminoAcidComposition, analysis.AminoAcidComposition), "Calculated amino acid composition did not match expected.");
     }
 }

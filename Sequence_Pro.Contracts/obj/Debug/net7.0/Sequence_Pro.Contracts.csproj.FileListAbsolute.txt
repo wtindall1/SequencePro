@@ -1,0 +1,12 @@
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\bin\Debug\net7.0\Sequence_Pro.Contracts.deps.json
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\bin\Debug\net7.0\Sequence_Pro.Contracts.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\bin\Debug\net7.0\Sequence_Pro.Contracts.pdb
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\Sequence_Pro.Contracts.csproj.AssemblyReference.cache
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\Sequence_Pro.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\Sequence_Pro.Contracts.AssemblyInfoInputs.cache
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\Sequence_Pro.Contracts.AssemblyInfo.cs
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\Sequence_Pro.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\Sequence_Pro.Contracts.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\refint\Sequence_Pro.Contracts.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\Sequence_Pro.Contracts.pdb
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Contracts\obj\Debug\net7.0\ref\Sequence_Pro.Contracts.dll

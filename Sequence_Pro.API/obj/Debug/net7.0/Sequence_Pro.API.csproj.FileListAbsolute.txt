@@ -5,9 +5,6 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.0\Sequence_Pro.API.csproj.CoreCompileInputs.cache
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.0\Sequence_Pro.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.0\Sequence_Pro.API.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Sequence_Pro.Application.deps.json
-C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Sequence_Pro.Application.runtimeconfig.json
-C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Sequence_Pro.Application.exe
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\appsettings.json
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Sequence_Pro.API.exe
@@ -36,3 +33,5 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.0\Sequence_Pro.API.pdb
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.0\Sequence_Pro.API.genruntimeconfig.cache
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\obj\Debug\net7.0\ref\Sequence_Pro.API.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Sequence_Pro.Contracts.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Sequence_Pro.Contracts.pdb

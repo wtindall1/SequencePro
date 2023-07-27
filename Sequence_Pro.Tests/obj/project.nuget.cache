@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "oQLXJalZuxnsmB4CCQlJWG1gy/WFZXSJRDi5rOIupdqbKXhWRfQVKkZD4/jBc6Q3BLD9+s+OJ5hFnJqTcZjaew==",
+  "dgSpecHash": "hKV6CyWA/htCwn3hRRKcwlTFoEIWCGOaQEwVsQNX1Q9rf3Z39bA1puueNogo1ikIr0aliVo7FXy9ezNNJ4PeGQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Tests\\Sequence_Pro.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.codecoverage\\17.5.0\\microsoft.codecoverage.17.5.0.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.net.test.sdk\\17.5.0\\microsoft.net.test.sdk.17.5.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

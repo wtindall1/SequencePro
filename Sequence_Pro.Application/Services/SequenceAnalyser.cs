@@ -12,10 +12,11 @@ public class SequenceAnalyser : ISequenceAnalyser
 
         return new SequenceAnalysis
         {
-            proteinSequence = sequence.aminoAcidSequence,
-            sequenceLength = sequence.aminoAcidSequence.Length,
-            aminoAcidComposition = CalculateAminoAcidComposition(sequence),
-            molecularWeight = CalculateMolecularWeight(sequence)
+            UniprotId = sequence.uniqueIdentifier,
+            ProteinSequence = sequence.aminoAcidSequence,
+            SequenceLength = sequence.aminoAcidSequence.Length,
+            AminoAcidComposition = CalculateAminoAcidComposition(sequence),
+            MolecularWeight = CalculateMolecularWeight(sequence)
         };
     }
 

@@ -5,9 +5,6 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net7.0\Sequence_Pro.Tests.AssemblyInfo.cs
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net7.0\Sequence_Pro.Tests.csproj.CoreCompileInputs.cache
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\testhost.dll
-C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Sequence_Pro.Application.deps.json
-C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Sequence_Pro.Application.runtimeconfig.json
-C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Sequence_Pro.Application.exe
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\testhost.exe
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\xunit.runner.reporters.netcoreapp10.dll
@@ -103,3 +100,5 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net7.0\Sequence_Pro.Tests.pdb
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net7.0\Sequence_Pro.Tests.genruntimeconfig.cache
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net7.0\ref\Sequence_Pro.Tests.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll

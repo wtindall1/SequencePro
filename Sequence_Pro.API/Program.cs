@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
 
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 

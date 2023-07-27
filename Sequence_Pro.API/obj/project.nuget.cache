@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "sQlGRnxP04i6OBjxNI6dA1nU2G/f0SzX5QmO9Eapm4ZFvTkq9Z4QMuDZlHOxOo4BJ6BXv7p4i6i9geynsXsAGQ==",
+  "dgSpecHash": "1DIXW3OVRO+cwJWzw5bCEZPlb0zu2deD6Ly1Y4uL3lET/zxA5deqqlKBumIos6NUD7Bstg20eTZ4bM9BoncKHg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.API\\Sequence_Pro.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
