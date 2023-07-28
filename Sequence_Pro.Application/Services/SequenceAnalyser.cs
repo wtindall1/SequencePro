@@ -12,6 +12,7 @@ public class SequenceAnalyser : ISequenceAnalyser
 
         return new SequenceAnalysis
         {
+            Id = Guid.NewGuid(),
             UniprotId = sequence.uniqueIdentifier,
             ProteinSequence = sequence.aminoAcidSequence,
             SequenceLength = sequence.aminoAcidSequence.Length,

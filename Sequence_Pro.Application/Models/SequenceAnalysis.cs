@@ -4,6 +4,8 @@ namespace Sequence_Pro.Application.Models;
 
 public class SequenceAnalysis
 {
+    public required Guid Id { get; set; }
+
     public required string UniprotId { get; set; }
 
     public required string ProteinSequence { get; set; }

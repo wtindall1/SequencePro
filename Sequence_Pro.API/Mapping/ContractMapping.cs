@@ -9,6 +9,7 @@ public static class ContractMapping
     {
         return new SequenceAnalysisResponse
         {
+            Id = sequenceAnalysis.Id,
             UniprotId = sequenceAnalysis.UniprotId,
             ProteinSequence = sequenceAnalysis.ProteinSequence,
             SequenceLength = sequenceAnalysis.SequenceLength,

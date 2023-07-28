@@ -2,13 +2,15 @@ namespace Sequence_Pro.Contracts.Responses;
 
 public class SequenceAnalysisResponse
 {
-    public required string UniprotId {  get; set; }
+    public Guid Id { get; init; }
     
-    public required string ProteinSequence { get; set; }
+    public required string UniprotId {  get; init; }
+    
+    public required string ProteinSequence { get; init; }
 
-    public required int SequenceLength { get; set; }
+    public required int SequenceLength { get; init; }
 
-    public required double MolecularWeight { get; set; }
+    public required double MolecularWeight { get; init; }
 
-    public required Dictionary<char, double> AminoAcidComposition { get; set; }
+    public required Dictionary<char, double> AminoAcidComposition { get; init; }
 }
