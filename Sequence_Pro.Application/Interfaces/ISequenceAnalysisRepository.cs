@@ -14,5 +14,7 @@ public interface ISequenceAnalysisRepository
 
     Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId);
 
+    Task<IEnumerable<SequenceAnalysis>> GetAllAsync();
+
     Task<bool> DeleteByIdAsync(Guid id);
 }

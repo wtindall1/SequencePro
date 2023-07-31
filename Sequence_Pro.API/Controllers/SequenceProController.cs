@@ -12,32 +12,47 @@ namespace Sequence_Pro.API.Controllers
 
         private readonly IUniprotAPI _uniprotAPI;
         private readonly ISequenceAnalyser _sequenceAnalyser;
+        private readonly ISequenceAnalysisRepository _repository;
         private readonly HttpClient _httpClient;
         
-        //inject uniprot API caller and sequence anlyser
+        //inject uniprot API caller, sequence analyser, repository
         public SequenceProController(IUniprotAPI uniprotAPI, 
-            ISequenceAnalyser sequenceAnalyser, 
+            ISequenceAnalyser sequenceAnalyser,
+            ISequenceAnalysisRepository sequenceAnalysisRepository,
             HttpClient httpClient)
         {
             _uniprotAPI = uniprotAPI;
             _sequenceAnalyser = sequenceAnalyser;
+            _repository = sequenceAnalysisRepository;
             _httpClient = httpClient;
         }
 
         [HttpPost(ApiEndpoints.SequenceAnalysis.Create)]
         public async Task<IActionResult> Create([FromBody] CreateSequenceAnalysisRequest request)
         {
-            string uniprotId = request.UniprotId;
-            var sequence = await _uniprotAPI.GetSequenceDetails(uniprotId, _httpClient);
+            //create and analyse sequence
+            var sequence = await _uniprotAPI.GetSequenceDetails(request.UniprotId, _httpClient);
             var sequenceAnalysis = _sequenceAnalyser.Analyse(sequence);
+
+            await _repository.CreateAsync(sequenceAnalysis);
             var sequenceAnalysisResponse = sequenceAnalysis.MapToResponse();
-            return CreatedAtAction(nameof(Get), new { uniprotId = sequenceAnalysis.UniprotId }, sequenceAnalysisResponse);
+            return CreatedAtAction(nameof(Get), new { IdOrUniprotId = sequenceAnalysis.UniprotId }, sequenceAnalysisResponse);
         }
 
         [HttpGet(ApiEndpoints.SequenceAnalysis.Get)]
-        public async Task<IActionResult> Get([FromRoute] string uniprotId)
+        public async Task<IActionResult> Get([FromRoute] string IdOrUniprotId)
         {
-            return Ok();
+            //check if search is guid & choose matching get function
+            var sequenceAnalysis = Guid.TryParse(IdOrUniprotId, out var id)
+                ? await _repository.GetByIdAsync(id)
+                : await _repository.GetByUniprotIdAsync(IdOrUniprotId);
+            
+            if (sequenceAnalysis is null)
+            {
+                return NotFound();
+            }
+            var response = sequenceAnalysis.MapToResponse();
+            return Ok(response);
         }
 
     }
