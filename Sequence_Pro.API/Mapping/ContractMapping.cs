@@ -17,4 +17,13 @@ public static class ContractMapping
             AminoAcidComposition = sequenceAnalysis.AminoAcidComposition
         };
     }
+
+    public static AllAnalysesResponse MapToResponse(this IEnumerable<SequenceAnalysis> allAnalyses)
+    {
+        return new AllAnalysesResponse
+        {
+            Items = allAnalyses.Select(MapToResponse)
+        };
+
+    }
 }

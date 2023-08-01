@@ -8,7 +8,9 @@ public static class ApiEndpoints
         private const string Base = $"{ApiBase}/sequenceAnalysis";
 
         public const string Create = Base;
+        public const string GetAll = Base;
         public const string Get = $"{Base}/{{IdOrUniprotId}}";
+        public const string Delete = $"{Base}/{{Id}}";
     }
 
 }

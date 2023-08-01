@@ -55,5 +55,26 @@ namespace Sequence_Pro.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet(ApiEndpoints.SequenceAnalysis.GetAll)]
+        public async Task<IActionResult> GetAll()
+        {
+            var allAnalyses = await _repository.GetAllAsync();
+
+            var response = allAnalyses.MapToResponse();
+            return Ok(response);
+
+        }
+
+        [HttpDelete(ApiEndpoints.SequenceAnalysis.Delete)]
+        public async Task<IActionResult> Delete([FromRoute] Guid Id)
+        {
+            var deleted = await _repository.DeleteByIdAsync(Id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+
     }
 }
