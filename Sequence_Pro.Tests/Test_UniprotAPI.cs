@@ -43,7 +43,7 @@ public class Test_UniprotAPI : IClassFixture<HttpClientFixture>
     }
 
     [Fact]
-    public async void Test_GetSequenceDetails_Invalid_Identifier_Throws_HttpRequestException()
+    public void Test_GetSequenceDetails_Invalid_Identifier_Throws_HttpRequestException()
     {
         var uniprotAPI = new UniprotAPI();
 

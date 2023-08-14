@@ -1,45 +1,157 @@
-﻿using Sequence_Pro.Application.Interfaces;
+﻿using Dapper;
+using Sequence_Pro.Application.Database;
+using Sequence_Pro.Application.Interfaces;
 using Sequence_Pro.Application.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sequence_Pro.Application.Repositories;
 public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 {
-    private readonly List<SequenceAnalysis> _sequenceAnalyses = new();
+    private readonly IDbConnectionFactory _dbConnectionFactory;
 
-    public Task<bool> CreateAsync(SequenceAnalysis sequenceAnalysis)
+    public SequenceAnalysisRepository(IDbConnectionFactory dbConnectionFactory)
     {
-        _sequenceAnalyses.Add(sequenceAnalysis);
-        return Task.FromResult(true);
-    }
-    public Task<SequenceAnalysis?> GetByIdAsync(Guid id)
-    {
-        var sequenceAnalysis = _sequenceAnalyses.SingleOrDefault(x => x.Id == id);
-        return Task.FromResult(sequenceAnalysis);
+        _dbConnectionFactory = dbConnectionFactory;
     }
 
-    public Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId)
+    public async Task<bool> CreateAsync(SequenceAnalysis sequenceAnalysis)
     {
-        var sequenceAnalysis = _sequenceAnalyses.FirstOrDefault(x => x.UniprotId == uniprotId);
-        return Task.FromResult(sequenceAnalysis);
+        var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        var transaction = connection.BeginTransaction();
+
+        var result = await connection.ExecuteAsync(new CommandDefinition("""
+            insert into Sequences (Id, UniprotId, ProteinSequence, SequenceLength, MolecularWeight, AminoAcidComposition)
+            values (@Id, @UniprotId, @ProteinSequence, @SequenceLength, @MolecularWeight, @AminoAcidComposition::jsonb);
+            """));
+
+        transaction.Commit();
+
+        return result > 0;
+        
     }
 
-    public Task<bool> DeleteByIdAsync(Guid id)
+    public async Task<SequenceAnalysis?> GetByIdAsync(Guid id)
     {
-        var removedCount = _sequenceAnalyses.RemoveAll(x => x.Id == id);
-        var analysisRemoved = removedCount > 0;
-        return Task.FromResult(analysisRemoved);
+        var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        var transaction = connection.BeginTransaction();
+
+        var result = await connection.QuerySingleOrDefaultAsync("""
+            select * from Sequences where Id = @id
+            """, new { id });
+
+        if (result is null)
+        {
+            return null;
+        }
+
+        //deserialize jsonb composition from dynamic object
+        string json = result.AminoAcidComposition.ToString();
+        var aminoAcidComposition = JsonSerializer.Deserialize<Dictionary<char, double>>(json);
+
+        var sequenceAnalysis = new SequenceAnalysis
+        {
+            Id = result.Id,
+            UniprotId = result.UniprotId,
+            ProteinSequence = result.ProteinSequence,
+            SequenceLength = result.SequenceLength,
+            MolecularWeight = result.MolecularWeight,
+            AminoAcidComposition = aminoAcidComposition!
+        };
+
+        transaction.Commit();
+
+        return sequenceAnalysis;
+
     }
 
-    public Task<IEnumerable<SequenceAnalysis>> GetAllAsync()
+    public async Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId)
     {
-        return Task.FromResult(_sequenceAnalyses.AsEnumerable());
+        var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        var transaction = connection.BeginTransaction();
+
+        var result = await connection.QuerySingleOrDefaultAsync("""
+            select * from Sequences where UniprotId = @uniprotId
+            """, new { uniprotId });
+
+        if (result is null)
+        {
+            return null;
+        }
+
+        //deserialize jsonb composition from dynamic object
+        string json = result.AminoAcidComposition.ToString();
+        var aminoAcidComposition = JsonSerializer.Deserialize<Dictionary<char, double>>(json);
+
+        var sequenceAnalysis = new SequenceAnalysis
+        {
+            Id = result.Id,
+            UniprotId = result.UniprotId,
+            ProteinSequence = result.ProteinSequence,
+            SequenceLength = result.SequenceLength,
+            MolecularWeight = result.MolecularWeight,
+            AminoAcidComposition = aminoAcidComposition!
+        };
+
+        transaction.Commit();
+
+        return sequenceAnalysis;
     }
+
+    public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync()
+    {
+        var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        var transaction = connection.BeginTransaction();
+
+        var result = await connection.QueryAsync(new CommandDefinition("""
+            select * from Sequences;
+            """));
+
+        var allAnalyses = result.Select(x => new SequenceAnalysis
+        {
+            Id = x.Id,
+            UniprotId = x.UniprotId,
+            ProteinSequence = x.ProteinSequence,
+            SequenceLength = x.SequenceLength,
+            MolecularWeight = x.MolecularWeight,
+            AminoAcidComposition = JsonSerializer.Deserialize<Dictionary<char, double>>(x.AminoAcidComposition.ToString())
+        });
+
+        transaction.Commit();
+
+        return allAnalyses;
+
+
+
+
+    }
+
+    public async Task<bool> DeleteByIdAsync(Guid id)
+    {
+        var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        var transaction = connection.BeginTransaction();
+
+        var result = await connection.ExecuteAsync(new CommandDefinition("""
+            delete from Sequences where Id = @id
+            """, new { id }));
+
+        transaction.Commit();
+
+        return result > 0;
+    }
+
+    
+
+    
 
 
 }
+
+
+
+
 
