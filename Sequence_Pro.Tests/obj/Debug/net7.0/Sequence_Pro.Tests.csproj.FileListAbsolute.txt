@@ -102,3 +102,6 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\obj\Debug\net7.0\ref\Sequence_Pro.Tests.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Dapper.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Npgsql.dll

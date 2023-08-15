@@ -1,6 +1,8 @@
 using Sequence_Pro.Application;
+using Sequence_Pro.Application.Database;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration;
 
 // Add services to the container.
 
@@ -10,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
+builder.Services.AddDatabase(config["Database:ConnectionString"]!);
 
 builder.Services.AddHttpClient();
 
@@ -28,5 +31,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var dbInitialiser = app.Services.GetRequiredService<DBInitialiser>();
+await dbInitialiser.InitialiseAsync();
 
 app.Run();

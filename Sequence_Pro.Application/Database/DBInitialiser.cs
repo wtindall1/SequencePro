@@ -22,12 +22,12 @@ public class DBInitialiser
         //create sequences table
         await connection.ExecuteAsync("""
             create table if not exists Sequences (
-            Id UUID primary key
-            UniprotId string not null
-            ProteinSequence string not null
-            SequenceLength integer not null
-            MolecularWeight double precision not null
-            AminoAcidComposition jsonb not null;
+            Id UUID primary key,
+            UniprotId TEXT not null,
+            ProteinSequence TEXT not null,
+            SequenceLength integer not null,
+            MolecularWeight double precision not null,
+            AminoAcidComposition jsonb not null);
             """);
 
         //create index for uniprotid

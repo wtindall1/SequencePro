@@ -10,32 +10,22 @@ namespace Sequence_Pro.API.Controllers
     public class SequenceProController : ControllerBase
     {
 
-        private readonly IUniprotAPI _uniprotAPI;
-        private readonly ISequenceAnalyser _sequenceAnalyser;
-        private readonly ISequenceAnalysisRepository _repository;
-        private readonly HttpClient _httpClient;
+        private readonly ISequenceAnalysisService _sequenceAnalysisService;
+
         
-        //inject uniprot API caller, sequence analyser, repository
-        public SequenceProController(IUniprotAPI uniprotAPI, 
-            ISequenceAnalyser sequenceAnalyser,
-            ISequenceAnalysisRepository sequenceAnalysisRepository,
-            HttpClient httpClient)
+        //inject analysis service
+        public SequenceProController(ISequenceAnalysisService sequenceAnalysisService)
         {
-            _uniprotAPI = uniprotAPI;
-            _sequenceAnalyser = sequenceAnalyser;
-            _repository = sequenceAnalysisRepository;
-            _httpClient = httpClient;
+            _sequenceAnalysisService = sequenceAnalysisService;
         }
+
 
         [HttpPost(ApiEndpoints.SequenceAnalysis.Create)]
         public async Task<IActionResult> Create([FromBody] CreateSequenceAnalysisRequest request)
         {
-            //create and analyse sequence
-            var sequence = await _uniprotAPI.GetSequenceDetails(request.UniprotId, _httpClient);
-            var sequenceAnalysis = _sequenceAnalyser.Analyse(sequence);
-
-            await _repository.CreateAsync(sequenceAnalysis);
+            var sequenceAnalysis = await _sequenceAnalysisService.CreateAsync(request.UniprotId);
             var sequenceAnalysisResponse = sequenceAnalysis.MapToResponse();
+
             return CreatedAtAction(nameof(Get), new { IdOrUniprotId = sequenceAnalysis.UniprotId }, sequenceAnalysisResponse);
         }
 
@@ -44,8 +34,8 @@ namespace Sequence_Pro.API.Controllers
         {
             //check if search is guid & choose matching get function
             var sequenceAnalysis = Guid.TryParse(IdOrUniprotId, out var id)
-                ? await _repository.GetByIdAsync(id)
-                : await _repository.GetByUniprotIdAsync(IdOrUniprotId);
+                ? await _sequenceAnalysisService.GetByIdAsync(id)
+                : await _sequenceAnalysisService.GetByUniprotIdAsync(IdOrUniprotId);
             
             if (sequenceAnalysis is null)
             {
@@ -58,7 +48,7 @@ namespace Sequence_Pro.API.Controllers
         [HttpGet(ApiEndpoints.SequenceAnalysis.GetAll)]
         public async Task<IActionResult> GetAll()
         {
-            var allAnalyses = await _repository.GetAllAsync();
+            var allAnalyses = await _sequenceAnalysisService.GetAllAsync();
 
             var response = allAnalyses.MapToResponse();
             return Ok(response);
@@ -68,7 +58,7 @@ namespace Sequence_Pro.API.Controllers
         [HttpDelete(ApiEndpoints.SequenceAnalysis.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid Id)
         {
-            var deleted = await _repository.DeleteByIdAsync(Id);
+            var deleted = await _sequenceAnalysisService.DeleteByIdAsync(Id);
             if (!deleted)
             {
                 return NotFound();

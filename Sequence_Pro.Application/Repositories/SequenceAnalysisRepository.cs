@@ -24,10 +24,20 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         var connection = await _dbConnectionFactory.CreateConnectionAsync();
         var transaction = connection.BeginTransaction();
 
+        var queryParameters = new
+        {
+            Id = sequenceAnalysis.Id,
+            UniprotId = sequenceAnalysis.UniprotId,
+            ProteinSequence = sequenceAnalysis.ProteinSequence,
+            SequenceLength = sequenceAnalysis.SequenceLength,
+            MolecularWeight = sequenceAnalysis.MolecularWeight,
+            AminoAcidComposition = JsonSerializer.Serialize(sequenceAnalysis.AminoAcidComposition)
+        };
+
         var result = await connection.ExecuteAsync(new CommandDefinition("""
             insert into Sequences (Id, UniprotId, ProteinSequence, SequenceLength, MolecularWeight, AminoAcidComposition)
             values (@Id, @UniprotId, @ProteinSequence, @SequenceLength, @MolecularWeight, @AminoAcidComposition::jsonb);
-            """));
+            """, queryParameters ));
 
         transaction.Commit();
 
