@@ -10,3 +10,6 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Application\obj\Deb
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Application\obj\Debug\net7.0\refint\Sequence_Pro.Application.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Application\obj\Debug\net7.0\Sequence_Pro.Application.pdb
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Application\obj\Debug\net7.0\ref\Sequence_Pro.Application.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Application\bin\Debug\net7.0\Sequence_Pro.Contracts.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Application\bin\Debug\net7.0\Sequence_Pro.Contracts.pdb
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Application\obj\Debug\net7.0\Sequence_Pro.Application.csproj.CopyComplete

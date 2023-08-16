@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "WJyq6MFzOCFlRV6RWvmHg9eGkgWbHc61m+RDC/4kVgReoMc+rKMIcHXAH5XZINXkiu2O6ZWiYv32R0KHdxGqqw==",
+  "dgSpecHash": "24dLscb+bFbNsY15TdUOvDH0S0xiZDE1Q+Tsi2zio8coObrmq68pSWjffAvWCWYhdcvIK/dkXXroNaGNSOLHpg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.API\\Sequence_Pro.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\dapper\\2.0.143\\dapper.2.0.143.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",

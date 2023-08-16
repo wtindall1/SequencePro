@@ -37,3 +37,5 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Sequence_Pro.Contracts.pdb
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Dapper.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Npgsql.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\FluentValidation.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll

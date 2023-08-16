@@ -30,13 +30,6 @@ public class DBInitialiser
             AminoAcidComposition jsonb not null);
             """);
 
-        //create index for uniprotid
-        await connection.ExecuteAsync("""
-            create unique index concurrently if not exists Sequences_UniprotId_idx
-            on Sequences
-            using btree(UniprotId);
-            """);
-
 
     }
 }

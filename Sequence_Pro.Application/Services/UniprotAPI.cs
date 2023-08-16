@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Sequence_Pro.Application.Interfaces;
 using Sequence_Pro.Application.Models;
+using System.Net;
 
 namespace Sequence_Pro.Application.Services;
 
@@ -42,7 +43,8 @@ public class UniprotAPI : IUniprotAPI
         catch (HttpRequestException e)
         {
             Console.WriteLine(e.Message);
-            throw;
+
+            throw e;
         }
     }
 }

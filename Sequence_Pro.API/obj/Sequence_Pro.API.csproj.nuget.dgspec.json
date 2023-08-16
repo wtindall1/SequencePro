@@ -102,7 +102,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Contracts\\Sequence_Pro.Contracts.csproj": {
+                "projectPath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Contracts\\Sequence_Pro.Contracts.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -118,6 +122,10 @@
             "Dapper": {
               "target": "Package",
               "version": "[2.0.143, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.7.1, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",

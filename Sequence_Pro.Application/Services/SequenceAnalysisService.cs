@@ -1,5 +1,7 @@
-﻿using Sequence_Pro.Application.Interfaces;
+﻿using FluentValidation;
+using Sequence_Pro.Application.Interfaces;
 using Sequence_Pro.Application.Models;
+using Sequence_Pro.Application.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,18 +16,22 @@ public class SequenceAnalysisService : ISequenceAnalysisService
     private readonly HttpClient _httpClient;
     private readonly IUniprotAPI _uniprotAPI;
     private readonly ISequenceAnalyser _sequenceAnalyser;
+    private readonly IValidator<string> _requestValidator;
 
     public SequenceAnalysisService(ISequenceAnalysisRepository repository, 
-        HttpClient httpClient, IUniprotAPI uniprotAPI, ISequenceAnalyser sequenceAnalyser)
+        HttpClient httpClient, IUniprotAPI uniprotAPI, ISequenceAnalyser sequenceAnalyser, IValidator<string> requestValidator)
     {
         _repository = repository;
         _httpClient = httpClient;
         _uniprotAPI = uniprotAPI;
         _sequenceAnalyser = sequenceAnalyser;
+        _requestValidator = requestValidator;
     }
 
     public async Task<SequenceAnalysis> CreateAsync(string uniprotId)
     {
+        _requestValidator.ValidateAndThrow(uniprotId);
+        
         //create and analyse sequence
         var sequence =  await _uniprotAPI.GetSequenceDetails(uniprotId, _httpClient);
         var sequenceAnalysis = _sequenceAnalyser.Analyse(sequence);

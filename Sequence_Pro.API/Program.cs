@@ -1,3 +1,4 @@
+using Sequence_Pro.API.Mapping;
 using Sequence_Pro.Application;
 using Sequence_Pro.Application.Database;
 
@@ -30,6 +31,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
 
 var dbInitialiser = app.Services.GetRequiredService<DBInitialiser>();
