@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sequence_Pro.Tests;
+namespace Sequence_Pro.Tests.Unit;
 
 public static class DictionaryComparer
 {

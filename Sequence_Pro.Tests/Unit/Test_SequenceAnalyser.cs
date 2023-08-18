@@ -5,7 +5,7 @@ using Sequence_Pro.Application.Models;
 using Sequence_Pro.Application.Services;
 
 
-namespace Sequence_Pro.Tests;
+namespace Sequence_Pro.Tests.Unit;
 
 
 public class Test_SequenceAnalyser
@@ -26,7 +26,7 @@ public class Test_SequenceAnalyser
         };
 
         _sequenceAnalyser = new SequenceAnalyser();
-        
+
     }
 
     [Fact]

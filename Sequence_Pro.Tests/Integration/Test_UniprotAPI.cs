@@ -3,7 +3,7 @@ using Sequence_Pro.Application.Services;
 using Sequence_Pro.Application.Models;
 using System.Runtime.CompilerServices;
 
-namespace Sequence_Pro.Tests;
+namespace Sequence_Pro.Tests.Integration;
 
 public class HttpClientFixture : IDisposable
 {
