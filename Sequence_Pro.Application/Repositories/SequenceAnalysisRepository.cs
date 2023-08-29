@@ -21,8 +21,8 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 
     public async Task<bool> CreateAsync(SequenceAnalysis sequenceAnalysis)
     {
-        var connection = await _dbConnectionFactory.CreateConnectionAsync();
-        var transaction = connection.BeginTransaction();
+        using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        using var transaction = connection.BeginTransaction();
 
         var queryParameters = new
         {
@@ -47,8 +47,8 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 
     public async Task<SequenceAnalysis?> GetByIdAsync(Guid id)
     {
-        var connection = await _dbConnectionFactory.CreateConnectionAsync();
-        var transaction = connection.BeginTransaction();
+        using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        using var transaction = connection.BeginTransaction();
 
         var result = await connection.QuerySingleOrDefaultAsync("""
             select * from Sequences where Id = @id
@@ -81,8 +81,8 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 
     public async Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId)
     {
-        var connection = await _dbConnectionFactory.CreateConnectionAsync();
-        var transaction = connection.BeginTransaction();
+        using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        using var transaction = connection.BeginTransaction();
 
         var result = await connection.QuerySingleOrDefaultAsync("""
             select * from Sequences where UniprotId = @uniprotId
@@ -114,8 +114,8 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 
     public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync()
     {
-        var connection = await _dbConnectionFactory.CreateConnectionAsync();
-        var transaction = connection.BeginTransaction();
+        using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        using var transaction = connection.BeginTransaction();
 
         var result = await connection.QueryAsync(new CommandDefinition("""
             select * from Sequences;
@@ -142,8 +142,8 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 
     public async Task<bool> DeleteByIdAsync(Guid id)
     {
-        var connection = await _dbConnectionFactory.CreateConnectionAsync();
-        var transaction = connection.BeginTransaction();
+        using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+        using var transaction = connection.BeginTransaction();
 
         var result = await connection.ExecuteAsync(new CommandDefinition("""
             delete from Sequences where Id = @id
