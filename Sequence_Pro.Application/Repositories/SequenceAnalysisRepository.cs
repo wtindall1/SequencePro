@@ -60,16 +60,16 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         }
 
         //deserialize jsonb composition from dynamic object
-        string json = result.AminoAcidComposition.ToString();
+        string json = result.aminoacidcomposition.ToString();
         var aminoAcidComposition = JsonSerializer.Deserialize<Dictionary<char, double>>(json);
 
         var sequenceAnalysis = new SequenceAnalysis
         {
-            Id = result.Id,
-            UniprotId = result.UniprotId,
-            ProteinSequence = result.ProteinSequence,
-            SequenceLength = result.SequenceLength,
-            MolecularWeight = result.MolecularWeight,
+            Id = result.id,
+            UniprotId = result.uniprotid,
+            ProteinSequence = result.proteinsequence,
+            SequenceLength = result.sequencelength,
+            MolecularWeight = result.molecularweight,
             AminoAcidComposition = aminoAcidComposition!
         };
 
@@ -84,7 +84,7 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
 
-        var result = await connection.QuerySingleOrDefaultAsync("""
+        var result = await connection.QueryFirstOrDefaultAsync("""
             select * from Sequences where UniprotId = @uniprotId
             """, new { uniprotId });
 
@@ -94,16 +94,16 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         }
 
         //deserialize jsonb composition from dynamic object
-        string json = result.AminoAcidComposition.ToString();
+        string json = result.aminoacidcomposition.ToString();
         var aminoAcidComposition = JsonSerializer.Deserialize<Dictionary<char, double>>(json);
 
         var sequenceAnalysis = new SequenceAnalysis
         {
-            Id = result.Id,
-            UniprotId = result.UniprotId,
-            ProteinSequence = result.ProteinSequence,
-            SequenceLength = result.SequenceLength,
-            MolecularWeight = result.MolecularWeight,
+            Id = result.id,
+            UniprotId = result.uniprotid,
+            ProteinSequence = result.proteinsequence,
+            SequenceLength = result.sequencelength,
+            MolecularWeight = result.molecularweight,
             AminoAcidComposition = aminoAcidComposition!
         };
 
@@ -123,12 +123,12 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 
         var allAnalyses = result.Select(x => new SequenceAnalysis
         {
-            Id = x.Id,
-            UniprotId = x.UniprotId,
-            ProteinSequence = x.ProteinSequence,
-            SequenceLength = x.SequenceLength,
-            MolecularWeight = x.MolecularWeight,
-            AminoAcidComposition = JsonSerializer.Deserialize<Dictionary<char, double>>(x.AminoAcidComposition.ToString())
+            Id = x.id,
+            UniprotId = x.uniprotid,
+            ProteinSequence = x.proteinsequence,
+            SequenceLength = x.sequencelength,
+            MolecularWeight = x.molecularweight,
+            AminoAcidComposition = JsonSerializer.Deserialize<Dictionary<char, double>>(x.aminoacidcomposition.ToString())
         });
 
         transaction.Commit();
