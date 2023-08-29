@@ -78,7 +78,6 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         return sequenceAnalysis;
 
     }
-
     public async Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
@@ -134,10 +133,6 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         transaction.Commit();
 
         return allAnalyses;
-
-
-
-
     }
 
     public async Task<bool> DeleteByIdAsync(Guid id)
