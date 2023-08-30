@@ -19,6 +19,5 @@ public class RequestValidator : AbstractValidator<string>
             .Must(value => value == null || value.Length == 6 || value.Length == 10)
             .WithName("UniprotId")
             .WithMessage("UniprotID / Accession number should be 6 or 10 alphanumeric characters.");
-
     }
 }
