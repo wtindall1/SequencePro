@@ -23,8 +23,6 @@ public class NpgsqlConnectionFactory : IDbConnectionFactory
         return connection;
     }
 
-    
-
 }
 
 public interface IDbConnectionFactory

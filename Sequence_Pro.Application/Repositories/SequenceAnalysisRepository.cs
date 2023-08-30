@@ -42,7 +42,6 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         transaction.Commit();
 
         return result > 0;
-        
     }
 
     public async Task<SequenceAnalysis?> GetByIdAsync(Guid id)
@@ -148,12 +147,6 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
 
         return result > 0;
     }
-
-    
-
-    
-
-
 }
 
 
