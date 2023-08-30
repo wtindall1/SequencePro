@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Sequence_Pro.Tests.Unit;
@@ -60,6 +61,4 @@ public class Test_SequenceAnalysisRepository
         //Assert
         Assert.False(result);
     }
-
-
 }

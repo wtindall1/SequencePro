@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Sequence_Pro.Application.Repositories;
 public class SequenceAnalysisRepository : ISequenceAnalysisRepository
@@ -49,9 +50,9 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
 
-        var result = await connection.QuerySingleOrDefaultAsync("""
+        var result = await connection.QuerySingleOrDefaultAsync(new CommandDefinition("""
             select * from Sequences where Id = @id
-            """, new { id });
+            """, new { id }));
 
         if (result is null)
         {
@@ -82,9 +83,9 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
 
-        var result = await connection.QueryFirstOrDefaultAsync("""
+        var result = await connection.QueryFirstOrDefaultAsync(new CommandDefinition("""
             select * from Sequences where UniprotId = @uniprotId
-            """, new { uniprotId });
+            """, new { uniprotId }));
 
         if (result is null)
         {
