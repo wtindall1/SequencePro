@@ -10,6 +10,7 @@
         "dependencies": {
           "Microsoft.NET.Test.Sdk": "17.5.0",
           "Moq": "4.20.69",
+          "Moq.Dapper": "1.0.7",
           "Sequence_Pro.Application": "1.0.0",
           "coverlet.collector": "3.2.0",
           "xunit": "2.4.2",
@@ -364,6 +365,18 @@
           "lib/net6.0/Moq.dll": {
             "assemblyVersion": "4.20.69.0",
             "fileVersion": "4.20.69.0"
+          }
+        }
+      },
+      "Moq.Dapper/1.0.7": {
+        "dependencies": {
+          "Dapper": "2.0.143",
+          "Moq": "4.20.69"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Moq.Dapper.dll": {
+            "assemblyVersion": "1.0.3.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -1268,6 +1281,13 @@
       "sha512": "sha512-8P/oAUOL8ZVyXnzBBcgdhTsOD1kQbAWfOcMI7KDQO3HqQtzB/0WYLdnMa4Jefv8nu/MQYiiG0IuoJdvG0v0Nig==",
       "path": "moq/4.20.69",
       "hashPath": "moq.4.20.69.nupkg.sha512"
+    },
+    "Moq.Dapper/1.0.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dW+M8etuQsvx1bSLTopozqz9+vfEuFc/nNwLUmwjI9TPEezGcmh8fcXD8+DsQOPwYqRwlTaQi+Gdba0Eh3YW/A==",
+      "path": "moq.dapper/1.0.7",
+      "hashPath": "moq.dapper.1.0.7.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",

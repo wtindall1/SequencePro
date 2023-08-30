@@ -448,6 +448,19 @@
           }
         }
       },
+      "Moq.Dapper/1.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "2.0.123",
+          "Moq": "4.18.4"
+        },
+        "compile": {
+          "lib/netstandard2.1/Moq.Dapper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Moq.Dapper.dll": {}
+        }
+      },
       "NETStandard.Library/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -2501,6 +2514,18 @@
         "moq.4.20.69.nupkg.sha512",
         "moq.nuspec",
         "readme.md"
+      ]
+    },
+    "Moq.Dapper/1.0.7": {
+      "sha512": "dW+M8etuQsvx1bSLTopozqz9+vfEuFc/nNwLUmwjI9TPEezGcmh8fcXD8+DsQOPwYqRwlTaQi+Gdba0Eh3YW/A==",
+      "type": "package",
+      "path": "moq.dapper/1.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Moq.Dapper.dll",
+        "moq.dapper.1.0.7.nupkg.sha512",
+        "moq.dapper.nuspec"
       ]
     },
     "NETStandard.Library/1.6.1": {
@@ -5986,6 +6011,7 @@
     "net7.0": [
       "Microsoft.NET.Test.Sdk >= 17.5.0",
       "Moq >= 4.20.69",
+      "Moq.Dapper >= 1.0.7",
       "Sequence_Pro.Application >= 1.0.0",
       "coverlet.collector >= 3.2.0",
       "xunit >= 2.4.2",
@@ -6042,6 +6068,10 @@
           "Moq": {
             "target": "Package",
             "version": "[4.20.69, )"
+          },
+          "Moq.Dapper": {
+            "target": "Package",
+            "version": "[1.0.7, )"
           },
           "coverlet.collector": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
