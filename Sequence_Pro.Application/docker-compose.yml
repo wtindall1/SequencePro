@@ -11,3 +11,14 @@ services:
       - POSTGRES_DB=localdb
     ports:
       - '5432:5432'
+
+  testdb:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=changeme
+      - POSTGRES_DB=testdb
+    ports:
+      - '5433:5432'
+    

@@ -22,12 +22,12 @@ public class HttpClientFixture : IDisposable
 
 
 
-public class Test_UniprotAPI : IClassFixture<HttpClientFixture>
+public class UniprotAPI_IntegrationTests : IClassFixture<HttpClientFixture>
 {
 
     private readonly HttpClient _httpClient;
 
-    public Test_UniprotAPI(HttpClientFixture httpClientFixture)
+    public UniprotAPI_IntegrationTests(HttpClientFixture httpClientFixture)
     {
         _httpClient = httpClientFixture.httpClient;
     }
