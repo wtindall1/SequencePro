@@ -19,7 +19,6 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=changeme
       - POSTGRES_DB=testdb
-    depends_on:
-      - db
-
+    ports:
+      - '5433:5432'
     

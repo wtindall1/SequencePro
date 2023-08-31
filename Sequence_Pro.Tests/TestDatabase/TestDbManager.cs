@@ -36,7 +36,7 @@ public class TestDbManager
         //create 5 records
         for (int i = 0; i < 5; i++)
         {
-            var queryParameters = SequenceAnalysisExample.Create();
+            var queryParameters = SequenceAnalysisExample.CreateSequenceAnalysisRecord();
 
             await connection.ExecuteAsync(new CommandDefinition("""
             insert into Sequences (Id, UniprotId, ProteinSequence, SequenceLength, MolecularWeight, AminoAcidComposition)
@@ -50,11 +50,22 @@ public class TestDbManager
         using var connection = await _connectionFactory.CreateConnectionAsync();
 
         await connection.ExecuteAsync(new CommandDefinition("""
-            delete * from Sequences
+            delete from Sequences;
             """));
     }
-        
-            
+
+    public async Task<Guid> PostTestRecord()
+    {
+        using var connection = await _connectionFactory.CreateConnectionAsync();
+
+        var queryParameters = SequenceAnalysisExample.CreateSequenceAnalysisRecord();
+
+        await connection.ExecuteAsync(new CommandDefinition("""
+            insert into Sequences (Id, UniprotId, ProteinSequence, SequenceLength, MolecularWeight, AminoAcidComposition)
+            values (@Id, @UniprotId, @ProteinSequence, @SequenceLength, @MolecularWeight, @AminoAcidComposition::jsonb);
+            """, queryParameters));
+
+        return queryParameters.Id;
 
         
     }
