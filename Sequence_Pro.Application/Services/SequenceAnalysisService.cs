@@ -28,7 +28,7 @@ public class SequenceAnalysisService : ISequenceAnalysisService
         _requestValidator = requestValidator;
     }
 
-    public async Task<SequenceAnalysis> CreateAsync(string uniprotId)
+    public async Task<SequenceAnalysis> CreateAsync(string uniprotId, CancellationToken token = default)
     {
         _requestValidator.ValidateAndThrow(uniprotId);
         
@@ -36,28 +36,28 @@ public class SequenceAnalysisService : ISequenceAnalysisService
         var sequence =  await _uniprotAPI.GetSequenceDetails(uniprotId, _httpClient);
         var sequenceAnalysis = _sequenceAnalyser.Analyse(sequence);
         
-        await _repository.CreateAsync(sequenceAnalysis);
+        await _repository.CreateAsync(sequenceAnalysis, token);
 
         return sequenceAnalysis;
     }
 
-    public Task<bool> DeleteByIdAsync(Guid id)
+    public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
     {
-        return _repository.DeleteByIdAsync(id);
+        return _repository.DeleteByIdAsync(id, token);
     }
 
-    public Task<IEnumerable<SequenceAnalysis>> GetAllAsync()
+    public Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default)
     {
-        return _repository.GetAllAsync();
+        return _repository.GetAllAsync(token);
     }
 
-    public Task<SequenceAnalysis?> GetByIdAsync(Guid id)
+    public Task<SequenceAnalysis?> GetByIdAsync(Guid id, CancellationToken token = default)
     {
-        return _repository.GetByIdAsync(id);
+        return _repository.GetByIdAsync(id, token);
     }
 
-    public Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId)
+    public Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId, CancellationToken token = default)
     {
-        return _repository.GetByUniprotIdAsync(uniprotId);
+        return _repository.GetByUniprotIdAsync(uniprotId, token);
     }
 }

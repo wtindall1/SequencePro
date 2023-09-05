@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Sequence_Pro.Application.Interfaces;
 public interface ISequenceAnalysisRepository
 {
-    Task<bool> CreateAsync(SequenceAnalysis sequenceAnalysis);
+    Task<bool> CreateAsync(SequenceAnalysis sequenceAnalysis, CancellationToken token = default);
 
-    Task<SequenceAnalysis?> GetByIdAsync(Guid id);
+    Task<SequenceAnalysis?> GetByIdAsync(Guid id, CancellationToken token = default);
 
-    Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId);
+    Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId, CancellationToken token = default);
 
-    Task<IEnumerable<SequenceAnalysis>> GetAllAsync();
+    Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default);
 
-    Task<bool> DeleteByIdAsync(Guid id);
+    Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default);
 }
