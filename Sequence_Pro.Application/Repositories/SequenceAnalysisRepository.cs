@@ -20,7 +20,7 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         _dbConnectionFactory = dbConnectionFactory;
     }
 
-    public async Task<bool> CreateAsync(SequenceAnalysis sequenceAnalysis)
+    public async Task<bool> CreateAsync(SequenceAnalysis sequenceAnalysis, CancellationToken token = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
@@ -38,21 +38,21 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         var result = await connection.ExecuteAsync(new CommandDefinition("""
             insert into Sequences (Id, UniprotId, ProteinSequence, SequenceLength, MolecularWeight, AminoAcidComposition)
             values (@Id, @UniprotId, @ProteinSequence, @SequenceLength, @MolecularWeight, @AminoAcidComposition::jsonb);
-            """, queryParameters ));
+            """, queryParameters, cancellationToken: token));
 
         transaction.Commit();
 
         return result > 0;
     }
 
-    public async Task<SequenceAnalysis?> GetByIdAsync(Guid id)
+    public async Task<SequenceAnalysis?> GetByIdAsync(Guid id, CancellationToken token = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
 
         var result = await connection.QuerySingleOrDefaultAsync(new CommandDefinition("""
             select * from Sequences where Id = @id
-            """, new { id }));
+            """, new { id }, cancellationToken: token));
 
         if (result is null)
         {
@@ -78,14 +78,14 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         return sequenceAnalysis;
 
     }
-    public async Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId)
+    public async Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId, CancellationToken token = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
 
         var result = await connection.QueryFirstOrDefaultAsync(new CommandDefinition("""
             select * from Sequences where UniprotId = @uniprotId
-            """, new { uniprotId }));
+            """, new { uniprotId }, cancellationToken: token));
 
         if (result is null)
         {
@@ -111,14 +111,14 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         return sequenceAnalysis;
     }
 
-    public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync()
+    public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
 
         var result = await connection.QueryAsync(new CommandDefinition("""
             select * from Sequences;
-            """));
+            """, cancellationToken: token));
 
         var allAnalyses = result.Select(x => new SequenceAnalysis
         {
@@ -135,14 +135,14 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         return allAnalyses;
     }
 
-    public async Task<bool> DeleteByIdAsync(Guid id)
+    public async Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync();
         using var transaction = connection.BeginTransaction();
 
         var result = await connection.ExecuteAsync(new CommandDefinition("""
             delete from Sequences where Id = @id
-            """, new { id }));
+            """, new { id }, cancellationToken: token));
 
         transaction.Commit();
 

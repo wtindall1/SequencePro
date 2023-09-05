@@ -64,7 +64,6 @@ public class Test_SequenceAnalysisService
         _mockSequenceAnalyser.Setup(x => x.Analyse(_sequence))
             .Returns(_sequenceAnalysis);
 
-
         //Act
         var result = await _sut.CreateAsync(_uniprotId);
 
@@ -78,7 +77,7 @@ public class Test_SequenceAnalysisService
     {
         //Arrange
         var guid = Guid.NewGuid();
-        _mockSequenceAnalysisRepository.Setup(x => x.GetByIdAsync(guid))
+        _mockSequenceAnalysisRepository.Setup(x => x.GetByIdAsync(guid, It.IsAny<CancellationToken>()))
             .ReturnsAsync(_sequenceAnalysis);
 
         //Act
@@ -92,7 +91,7 @@ public class Test_SequenceAnalysisService
     public async Task Test_GetByUniprotIdAsync_Returns_SequenceAnalysis_Asynchronously()
     {
         //Arrange
-        _mockSequenceAnalysisRepository.Setup(x => x.GetByUniprotIdAsync(_uniprotId))
+        _mockSequenceAnalysisRepository.Setup(x => x.GetByUniprotIdAsync(_uniprotId, It.IsAny<CancellationToken>()))
             .ReturnsAsync(_sequenceAnalysis);
 
         //Act
@@ -113,7 +112,7 @@ public class Test_SequenceAnalysisService
             _sequenceAnalysis,
         };
 
-        _mockSequenceAnalysisRepository.Setup(x => x.GetAllAsync())
+        _mockSequenceAnalysisRepository.Setup(x => x.GetAllAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(analyses);
 
         //Act
@@ -129,9 +128,9 @@ public class Test_SequenceAnalysisService
         //Arrange
         var guid1 = Guid.NewGuid();
         var guid2 = Guid.NewGuid();
-        _mockSequenceAnalysisRepository.Setup(x => x.DeleteByIdAsync(guid1))
+        _mockSequenceAnalysisRepository.Setup(x => x.DeleteByIdAsync(guid1, It.IsAny<CancellationToken>()))
             .ReturnsAsync(true);
-        _mockSequenceAnalysisRepository.Setup(x => x.DeleteByIdAsync(guid2))
+        _mockSequenceAnalysisRepository.Setup(x => x.DeleteByIdAsync(guid2, It.IsAny<CancellationToken>()))
             .ReturnsAsync(false);
 
         //Act

@@ -21,21 +21,23 @@ namespace Sequence_Pro.API.Controllers
 
 
         [HttpPost(ApiEndpoints.SequenceAnalysis.Create)]
-        public async Task<IActionResult> Create([FromBody] CreateSequenceAnalysisRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateSequenceAnalysisRequest request,
+            CancellationToken token)
         {
-            var sequenceAnalysis = await _sequenceAnalysisService.CreateAsync(request.UniprotId);
+            var sequenceAnalysis = await _sequenceAnalysisService.CreateAsync(request.UniprotId, token);
             var sequenceAnalysisResponse = sequenceAnalysis.MapToResponse();
 
             return CreatedAtAction(nameof(Get), new { IdOrUniprotId = sequenceAnalysis.UniprotId }, sequenceAnalysisResponse);
         }
 
         [HttpGet(ApiEndpoints.SequenceAnalysis.Get)]
-        public async Task<IActionResult> Get([FromRoute] string IdOrUniprotId)
+        public async Task<IActionResult> Get([FromRoute] string IdOrUniprotId,
+            CancellationToken token)
         {
             //check if search is guid & choose matching get function
             var sequenceAnalysis = Guid.TryParse(IdOrUniprotId, out var id)
-                ? await _sequenceAnalysisService.GetByIdAsync(id)
-                : await _sequenceAnalysisService.GetByUniprotIdAsync(IdOrUniprotId);
+                ? await _sequenceAnalysisService.GetByIdAsync(id, token)
+                : await _sequenceAnalysisService.GetByUniprotIdAsync(IdOrUniprotId, token);
             
             if (sequenceAnalysis is null)
             {
@@ -46,9 +48,9 @@ namespace Sequence_Pro.API.Controllers
         }
 
         [HttpGet(ApiEndpoints.SequenceAnalysis.GetAll)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken token)
         {
-            var allAnalyses = await _sequenceAnalysisService.GetAllAsync();
+            var allAnalyses = await _sequenceAnalysisService.GetAllAsync(token);
 
             var response = allAnalyses.MapToResponse();
             return Ok(response);
@@ -56,9 +58,10 @@ namespace Sequence_Pro.API.Controllers
         }
 
         [HttpDelete(ApiEndpoints.SequenceAnalysis.Delete)]
-        public async Task<IActionResult> Delete([FromRoute] Guid Id)
+        public async Task<IActionResult> Delete([FromRoute] Guid Id,
+            CancellationToken token)
         {
-            var deleted = await _sequenceAnalysisService.DeleteByIdAsync(Id);
+            var deleted = await _sequenceAnalysisService.DeleteByIdAsync(Id, token);
             if (!deleted)
             {
                 return NotFound();
