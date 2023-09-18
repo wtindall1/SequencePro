@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Sequence_Pro.API.Auth;
 using Sequence_Pro.API.Mapping;
 using Sequence_Pro.API.Swagger;
 using Sequence_Pro.Application;
@@ -32,7 +33,15 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy(AuthConstants.AdminUserPolicyName, p => p.RequireClaim(AuthConstants.AdminUserClaimName, "true"));
+    x.AddPolicy(AuthConstants.TrustedUserPolicyName,
+        p =>
+        p.RequireAssertion(c =>
+        c.User.HasClaim(m => m is { Type: AuthConstants.AdminUserClaimName, Value: "true" }) ||
+        c.User.HasClaim(m => m is { Type: AuthConstants.TrustedUserClaimName, Value: "true" })));
+});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
