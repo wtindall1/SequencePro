@@ -8,8 +8,8 @@ Database setup (Docker / postgres):
 Run unit & integration tests (Visual Studio):
 - Run tests in Sequence_Pro.Tests
 
-
---- STEPS TO RUN API (Visual Studio) ---
+------------------------
+STEPS TO RUN API (Visual Studio)
 
 Generate token:
 1. run Token.API (swagger should open automatically)
