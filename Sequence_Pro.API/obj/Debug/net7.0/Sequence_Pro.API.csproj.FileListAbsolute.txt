@@ -39,3 +39,10 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Npgsql.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\FluentValidation.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

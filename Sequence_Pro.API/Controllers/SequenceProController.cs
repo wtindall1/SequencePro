@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Sequence_Pro.API.Auth;
 using Sequence_Pro.API.Mapping;
 using Sequence_Pro.Application.Interfaces;
 using Sequence_Pro.Contracts.Requests;
@@ -12,14 +14,12 @@ namespace Sequence_Pro.API.Controllers
 
         private readonly ISequenceAnalysisService _sequenceAnalysisService;
 
-        
-        //inject analysis service
         public SequenceProController(ISequenceAnalysisService sequenceAnalysisService)
         {
             _sequenceAnalysisService = sequenceAnalysisService;
         }
 
-
+        [Authorize(AuthConstants.TrustedUserPolicyName)]
         [HttpPost(ApiEndpoints.SequenceAnalysis.Create)]
         public async Task<IActionResult> Create([FromBody] CreateSequenceAnalysisRequest request,
             CancellationToken token)
@@ -34,7 +34,7 @@ namespace Sequence_Pro.API.Controllers
         public async Task<IActionResult> Get([FromRoute] string IdOrUniprotId,
             CancellationToken token)
         {
-            //check if search is guid & choose matching get function
+            //check if search is guid & choose matching get method
             var sequenceAnalysis = Guid.TryParse(IdOrUniprotId, out var id)
                 ? await _sequenceAnalysisService.GetByIdAsync(id, token)
                 : await _sequenceAnalysisService.GetByUniprotIdAsync(IdOrUniprotId, token);
@@ -57,6 +57,7 @@ namespace Sequence_Pro.API.Controllers
 
         }
 
+        [Authorize(AuthConstants.AdminUserPolicyName)]
         [HttpDelete(ApiEndpoints.SequenceAnalysis.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid Id,
             CancellationToken token)
