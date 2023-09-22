@@ -34,10 +34,10 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
         _requestValidator = new RequestValidator();
         _httpClient = new HttpClient();
         _dbConnectionFactory = new NpgsqlConnectionFactory(_testDbConnectionString);
-        _repository = new SequenceAnalysisRepository(_dbConnectionFactory);
+        _repository = new SequenceAnalysisRepositoryV1(_dbConnectionFactory);
         _uniprotAPI = new UniprotAPI();
         _sequenceAnalyser = new SequenceAnalyser();
-        _repository = new SequenceAnalysisRepository(_dbConnectionFactory);
+        _repository = new SequenceAnalysisRepositoryV1(_dbConnectionFactory);
 
         _sut = new SequenceAnalysisService(_repository, _httpClient, _uniprotAPI, _sequenceAnalyser, _requestValidator);
 
