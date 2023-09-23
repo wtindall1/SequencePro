@@ -46,3 +46,5 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.API\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll

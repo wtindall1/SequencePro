@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Sequence_Pro.Application.Database;
 public class SequenceProContext : DbContext
 {
-    public DbSet<SequenceAnalysis> SequenceAnalyses { get; set; }
+    public DbSet<SequenceAnalysisEntity> SequenceAnalyses { get; set; }
     
     public SequenceProContext(DbContextOptions<SequenceProContext> options) 
         : base(options)

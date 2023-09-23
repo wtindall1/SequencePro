@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sequence_Pro.Application.Database.Models;
 
-public class SequenceAnalysis
+public class SequenceAnalysisEntity
 {
     public required Guid Id { get; set; }
 
