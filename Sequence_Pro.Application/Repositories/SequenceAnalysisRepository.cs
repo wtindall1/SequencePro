@@ -54,13 +54,25 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         return sequenceAnalysisEntity.MapToObject();
     }
 
-    public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
+    public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default)
     {
-        throw new NotImplementedException();
+        var sequenceAnalysisEntities = await _dbContext.SequenceAnalyses
+            .ToListAsync(token);
+
+        return sequenceAnalysisEntities.Select(x => x.MapToObject());
     }
 
-    public Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default)
+    public async Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
     {
-        throw new NotImplementedException();
+        var entityToRemove = _dbContext.SequenceAnalyses
+            .SingleOrDefault(x => x.Id == id);
+
+        if (entityToRemove != null)
+        {
+            _dbContext.SequenceAnalyses.Remove(entityToRemove);
+            await _dbContext.SaveChangesAsync();
+            return true;
+        }
+        return false;  
     }
 }
