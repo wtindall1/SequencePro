@@ -54,7 +54,6 @@ namespace Sequence_Pro.API.Controllers
 
             var response = allAnalyses.MapToResponse();
             return Ok(response);
-
         }
 
         [Authorize(AuthConstants.AdminUserPolicyName)]

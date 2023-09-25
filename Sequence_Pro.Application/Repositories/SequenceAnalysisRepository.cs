@@ -70,7 +70,7 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         if (entityToRemove != null)
         {
             _dbContext.SequenceAnalyses.Remove(entityToRemove);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(token);
             return true;
         }
         return false;  

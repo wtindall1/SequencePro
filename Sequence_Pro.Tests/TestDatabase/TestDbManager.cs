@@ -1,5 +1,8 @@
 ﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using Sequence_Pro.Application.Database;
+using Sequence_Pro.Application.Database.Mapping;
+using Sequence_Pro.Application.Database.Models;
 using Sequence_Pro.Application.Models;
 using Sequence_Pro.Tests.TestObjects;
 using System;
@@ -12,61 +15,28 @@ using System.Threading.Tasks;
 namespace Sequence_Pro.Tests.TestDatabase;
 public class TestDbManager
 {
-    private readonly IDbConnectionFactory _connectionFactory;
+    private readonly SequenceProContext _dbContext;
 
-    public TestDbManager(IDbConnectionFactory connectionFactory)
+    public TestDbManager(string connectionString)
     {
-        _connectionFactory = connectionFactory;
+        _dbContext = new SequenceProContext(new DbContextOptionsBuilder<SequenceProContext>()
+            .UseNpgsql(connectionString)
+            .Options);
     }
 
-    public async Task InitialiseAsync()
+    public async Task InitialiseDatabaseWithFiveRecordsAsync()
     {
-        using var connection = await _connectionFactory.CreateConnectionAsync();
+        _dbContext.Database.EnsureDeleted();
+        _dbContext.Database.EnsureCreated();
 
-        await connection.ExecuteAsync("""
-            create table if not exists Sequences (
-            Id UUID primary key,
-            UniprotId TEXT not null,
-            ProteinSequence TEXT not null,
-            SequenceLength integer not null,
-            MolecularWeight double precision not null,
-            AminoAcidComposition jsonb not null);
-            """);
-
-        //create 5 records
+        //create 5 entities
+        var entities = new List<SequenceAnalysisEntity>();
         for (int i = 0; i < 5; i++)
         {
-            var queryParameters = SequenceAnalysisExample.CreateSequenceAnalysisRecord();
-
-            await connection.ExecuteAsync(new CommandDefinition("""
-            insert into Sequences (Id, UniprotId, ProteinSequence, SequenceLength, MolecularWeight, AminoAcidComposition)
-            values (@Id, @UniprotId, @ProteinSequence, @SequenceLength, @MolecularWeight, @AminoAcidComposition::jsonb);
-            """, queryParameters));
+            entities.Add(SequenceAnalysisExample.Create().MapToEntity());
         }
-    }
 
-    public async Task ClearTestDbAsync()
-    {
-        using var connection = await _connectionFactory.CreateConnectionAsync();
-
-        await connection.ExecuteAsync(new CommandDefinition("""
-            delete from Sequences;
-            """));
-    }
-
-    public async Task<Guid> PostTestRecord()
-    {
-        using var connection = await _connectionFactory.CreateConnectionAsync();
-
-        var queryParameters = SequenceAnalysisExample.CreateSequenceAnalysisRecord();
-
-        await connection.ExecuteAsync(new CommandDefinition("""
-            insert into Sequences (Id, UniprotId, ProteinSequence, SequenceLength, MolecularWeight, AminoAcidComposition)
-            values (@Id, @UniprotId, @ProteinSequence, @SequenceLength, @MolecularWeight, @AminoAcidComposition::jsonb);
-            """, queryParameters));
-
-        return queryParameters.Id;
-
-        
+        _dbContext.AddRange(entities);
+        await _dbContext.SaveChangesAsync();
     }
 }

@@ -122,3 +122,6 @@ C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
 C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Will.Tindall\source\repos\sequence_pro\Sequence_Pro.Tests\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

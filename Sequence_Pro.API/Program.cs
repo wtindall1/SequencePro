@@ -70,7 +70,4 @@ app.UseAuthorization();
 app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
 
-var dbInitialiser = app.Services.GetRequiredService<DBInitialiser>();
-await dbInitialiser.InitialiseAsync();
-
 app.Run();

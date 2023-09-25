@@ -15,9 +15,9 @@ public static class ApplicationServiceCollectionExtensions
     {
         services.AddSingleton<IUniprotAPI, UniprotAPI>();
         services.AddSingleton<ISequenceAnalyser, SequenceAnalyser>();
-        services.AddSingleton<ISequenceAnalysisRepository, SequenceAnalysisRepository>();
         services.AddSingleton<IValidator<string>, RequestValidator>();
-        services.AddSingleton<ISequenceAnalysisService, SequenceAnalysisService>();
+        services.AddTransient<ISequenceAnalysisRepository, SequenceAnalysisRepository>();
+        services.AddTransient<ISequenceAnalysisService, SequenceAnalysisService>();
         return services;
     }
 

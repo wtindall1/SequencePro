@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Sequence_Pro.Application.Database;
+using Sequence_Pro.Application.Database.Mapping;
 using Sequence_Pro.Application.Interfaces;
 using Sequence_Pro.Application.Models;
 using Sequence_Pro.Application.Repositories;
@@ -15,12 +17,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sequence_Pro.Tests.Integration;
-public class SequenceAnalysisService_IntegrationTests : IDisposable
+public class SequenceAnalysisService_IntegrationTests
 {
     private readonly string _testDbConnectionString = "Server=localhost;Port=5433;Database=testdb;User ID=user;Password=changeme";
+    private readonly SequenceProContext _testDbContext;
     private readonly ISequenceAnalysisRepository _repository;
     private readonly HttpClient _httpClient;
-    private readonly IDbConnectionFactory _dbConnectionFactory;
     private readonly IUniprotAPI _uniprotAPI;
     private readonly ISequenceAnalyser _sequenceAnalyser;
     private readonly IValidator<string> _requestValidator;
@@ -33,51 +35,44 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
         //set up system under test
         _requestValidator = new RequestValidator();
         _httpClient = new HttpClient();
-        _dbConnectionFactory = new NpgsqlConnectionFactory(_testDbConnectionString);
-        _repository = new SequenceAnalysisRepositoryV1(_dbConnectionFactory);
         _uniprotAPI = new UniprotAPI();
         _sequenceAnalyser = new SequenceAnalyser();
-        _repository = new SequenceAnalysisRepositoryV1(_dbConnectionFactory);
+        _testDbContext = new SequenceProContext(new DbContextOptionsBuilder<SequenceProContext>()
+            .UseNpgsql(_testDbConnectionString)
+            .Options);
+        _repository = new SequenceAnalysisRepository(_testDbContext);
+        _testDbManager = new TestDbManager(_testDbConnectionString);
 
         _sut = new SequenceAnalysisService(_repository, _httpClient, _uniprotAPI, _sequenceAnalyser, _requestValidator);
-
-        //initialise test db
-        _testDbManager = new TestDbManager(_dbConnectionFactory);
     }
-
-    public async void Dispose() => await _testDbManager.ClearTestDbAsync();
 
     [Fact]
     public async Task SequenceAnalysisService_CreateAsync_Posts_To_Database()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
-        using var validationConnection = await _dbConnectionFactory.CreateConnectionAsync();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
 
         //Act
-        var sequenceAnalysis = await _sut.CreateAsync("P12345");
+        var sequenceAnalysisSaved = await _sut.CreateAsync("P12345");
 
         //Assert
-        var result = await validationConnection.ExecuteScalarAsync<bool>("""
-            select case when exists(
-            select 1 from Sequences where id = @Id)
-            then 1 else 0 end;
-            """, new { sequenceAnalysis.Id });
+        var sequenceAnalysisQueried = await _testDbContext.SequenceAnalyses
+            .Where(x => x.Id == sequenceAnalysisSaved.Id)
+            .SingleOrDefaultAsync();
 
-        Assert.True(result);
-        Assert.IsType<SequenceAnalysis>(sequenceAnalysis);
+        Assert.NotNull(sequenceAnalysisQueried);
+        Assert.Equivalent(sequenceAnalysisSaved, sequenceAnalysisQueried.MapToObject()
+            , strict: true);
     }
 
     [Fact]
     public async Task SequenceAnalysisService_GetByIdAsync_Returns_Null_When_No_Matching_Record_Found()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
-        var sequenceAnalysis = SequenceAnalysisExample.Create();
-        var id = sequenceAnalysis.Id;
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
 
         //Act
-        var result = await _sut.GetByIdAsync(id);
+        var result = await _sut.GetByIdAsync(Guid.NewGuid());
 
         //Assert
         Assert.Null(result);
@@ -87,22 +82,24 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
     public async Task SequenceAnalysisService_GetByIdAsync_Returns_SequenceAnalysis_When_Matching_Record_Found()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
-        var id = await _testDbManager.PostTestRecord();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
+        var entity = SequenceAnalysisExample.Create().MapToEntity();
+        _testDbContext.SequenceAnalyses.Add(entity);
+        await _testDbContext.SaveChangesAsync();
         
         //Act
-        var result = await _sut.GetByIdAsync(id);
+        var result = await _sut.GetByIdAsync(entity.Id);
 
         //Assert
         Assert.IsType<SequenceAnalysis>(result);
-        Assert.Equal(id, result.Id);
+        Assert.Equivalent(entity, result);
     }
 
     [Fact]
     public async Task SequenceAnalysisService_GetByUniprotIdAsync_Returns_Null_When_No_Matching_Record_Found()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
         var uniprotId = "P12341";
 
         //Act
@@ -116,7 +113,7 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
     public async Task SequenceAnalysisService_GetByUniprotIdAsync_Returns_SequenceAnalysis_When_Matching_Record_Found()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
         var uniprotId = "P12563";
 
         //Act
@@ -128,16 +125,16 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
     }
 
     [Fact]
-    public async Task SequenceAnalysisService_GetAllAsync_Returns_Empty_IEnumerable_SequenceAnalysis_When_No_Records_Found()
+    public async Task SequenceAnalysisService_GetAllAsync_Returns_Empty_Collection_When_No_Records_Found()
     {
         //Arrange
-        await _testDbManager.ClearTestDbAsync();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
+        await _testDbContext.SequenceAnalyses.ExecuteDeleteAsync();
 
         //Act
         var result = await _sut.GetAllAsync();
 
         //Assert
-        Assert.IsAssignableFrom<IEnumerable<SequenceAnalysis>>(result);
         Assert.Empty(result);
     }
 
@@ -145,7 +142,7 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
     public async Task SequenceAnalysisService_GetAllAsync_Returns_IEnumerable_SequenceAnalysis_When_Records_Found()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
 
         //Act
         var result = await _sut.GetAllAsync();
@@ -159,29 +156,28 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
     public async Task SequenceAnalysisService_DeleteByIdAsync_Removes_Record_With_Matching_Id()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
-        using var validationConnection = await _dbConnectionFactory.CreateConnectionAsync();
-        var id = await _testDbManager.PostTestRecord();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
+        var entity = SequenceAnalysisExample.Create().MapToEntity();
+        _testDbContext.SequenceAnalyses.Add(entity);
+        await _testDbContext.SaveChangesAsync();
 
         //Act
-        var result = await _sut.DeleteByIdAsync(id);
+        var result = await _sut.DeleteByIdAsync(entity.Id);
 
         //Assert
-        var exists = await validationConnection.ExecuteScalarAsync<bool>("""
-            select case when exists(
-            select 1 from Sequences where id = @Id)
-            then 1 else 0 end;
-            """, new { Id = id });
+        var record = await _testDbContext.SequenceAnalyses
+            .Where(x => x.Id == entity.Id)
+            .SingleOrDefaultAsync();
 
         Assert.True(result);
-        Assert.False(exists);
+        Assert.Null(record);
     }
 
     [Fact]
     public async Task SequenceAnalysisService_DeleteByIdAsync_Returns_False_When_No_Matching_Record()
     {
         //Arrange
-        await _testDbManager.InitialiseAsync();
+        await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
 
         //Act
         var result = await _sut.DeleteByIdAsync(Guid.NewGuid());
@@ -189,10 +185,4 @@ public class SequenceAnalysisService_IntegrationTests : IDisposable
         //Assert
         Assert.False(result);
     }
-
-
-
-
-
-
 }
