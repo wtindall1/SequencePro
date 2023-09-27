@@ -32,7 +32,6 @@ public class UniprotAPI_IntegrationTests : IClassFixture<HttpClientFixture>
         _httpClient = httpClientFixture.httpClient;
     }
 
-
     [Fact]
     public async void Test_GetSequenceDetails_Returns_Sequence_Object()
     {
@@ -51,7 +50,5 @@ public class UniprotAPI_IntegrationTests : IClassFixture<HttpClientFixture>
         Func<Task> asyncAction = async () => await uniprotAPI.GetSequenceDetails("G4612345", _httpClient);
 
         Assert.ThrowsAsync<HttpRequestException>(asyncAction);
-
-
     }
 }
