@@ -12,7 +12,6 @@ public class UniprotAPI : IUniprotAPI
 {
     private const string _baseUrl = "https://www.uniprot.org/uniprotkb/";
 
-
     public async Task<Sequence> GetSequenceDetails(string uniprotId, HttpClient client) //register HttpClient as singleton in api
     {
         try
@@ -32,13 +31,10 @@ public class UniprotAPI : IUniprotAPI
                 organismName = json.RootElement.GetProperty("organism").GetProperty("scientificName").ToString(),
                 aminoAcidSequence = json.RootElement.GetProperty("sequence").GetProperty("value").ToString()
             };
-        
 
             json.Dispose();
 
             return sequence;
-            
-
         }
         catch (HttpRequestException e)
         {
