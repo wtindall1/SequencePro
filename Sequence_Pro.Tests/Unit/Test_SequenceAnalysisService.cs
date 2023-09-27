@@ -58,7 +58,7 @@ public class Test_SequenceAnalysisService
     public async Task Test_CreateAsync_Returns_SequenceAnalysis_Asynchronously()
     {
         //Arrange
-        _mockUniprotAPI.Setup(x => x.GetSequenceDetails(_uniprotId, _mockHttpClient.Object))
+        _mockUniprotAPI.Setup(x => x.GetSequenceDetails(_uniprotId, _mockHttpClient.Object, It.IsAny<CancellationToken>()))
             .ReturnsAsync(_sequence);
 
         _mockSequenceAnalyser.Setup(x => x.Analyse(_sequence))
@@ -69,7 +69,6 @@ public class Test_SequenceAnalysisService
 
         //Assert
         Assert.IsType<SequenceAnalysis>(result);
-        
     }
 
     [Fact]
