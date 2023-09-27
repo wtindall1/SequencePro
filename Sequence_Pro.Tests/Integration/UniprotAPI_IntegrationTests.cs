@@ -2,8 +2,48 @@ using Xunit;
 using Sequence_Pro.Application.Services;
 using Sequence_Pro.Application.Models;
 using System.Runtime.CompilerServices;
+using Sequence_Pro.Application.Interfaces;
 
 namespace Sequence_Pro.Tests.Integration;
+
+public class UniprotAPI_IntegrationTests : IClassFixture<HttpClientFixture>
+{
+
+    private readonly HttpClient _httpClient;
+    private readonly IUniprotAPI _uniprotAPI;
+
+    public UniprotAPI_IntegrationTests(HttpClientFixture httpClientFixture)
+    {
+        _httpClient = httpClientFixture.httpClient;
+        _uniprotAPI = new UniprotAPI();
+    }
+
+    [Fact]
+    public async void Test_GetSequenceDetails_Returns_Sequence_Object()
+    {
+        //Arrange
+        var uniprotId = "P12345";
+
+        //Act
+        var sequence = await _uniprotAPI.GetSequenceDetails(uniprotId, _httpClient);
+
+        //Assert
+        Assert.True(sequence.GetType() == typeof(Sequence), $"{sequence.GetType()} was returned");
+    }
+
+    [Fact]
+    public void Test_GetSequenceDetails_Invalid_Identifier_Throws_HttpRequestException()
+    {
+        //Arrange
+        var uniprotId = "G4612345";
+
+        //Act
+        Func<Task> asyncAction = async () => await _uniprotAPI.GetSequenceDetails(uniprotId, _httpClient);
+
+        //Assert
+        Assert.ThrowsAsync<HttpRequestException>(asyncAction);
+    }
+}
 
 public class HttpClientFixture : IDisposable
 {
@@ -17,38 +57,5 @@ public class HttpClientFixture : IDisposable
     public void Dispose()
     {
         httpClient.Dispose();
-    }
-}
-
-
-
-public class UniprotAPI_IntegrationTests : IClassFixture<HttpClientFixture>
-{
-
-    private readonly HttpClient _httpClient;
-
-    public UniprotAPI_IntegrationTests(HttpClientFixture httpClientFixture)
-    {
-        _httpClient = httpClientFixture.httpClient;
-    }
-
-    [Fact]
-    public async void Test_GetSequenceDetails_Returns_Sequence_Object()
-    {
-        var uniprotAPI = new UniprotAPI();
-        var sequence = await uniprotAPI.GetSequenceDetails("P12345", _httpClient);
-
-        Assert.True(sequence.GetType() == typeof(Sequence), $"{sequence.GetType()} was returned");
-    }
-
-    [Fact]
-    public void Test_GetSequenceDetails_Invalid_Identifier_Throws_HttpRequestException()
-    {
-        var uniprotAPI = new UniprotAPI();
-
-        //create delegate that should throw exception (invalid uniprot accession id)
-        Func<Task> asyncAction = async () => await uniprotAPI.GetSequenceDetails("G4612345", _httpClient);
-
-        Assert.ThrowsAsync<HttpRequestException>(asyncAction);
     }
 }
