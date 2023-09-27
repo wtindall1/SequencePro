@@ -12,17 +12,16 @@ public class UniprotAPI : IUniprotAPI
 {
     private const string _baseUrl = "https://www.uniprot.org/uniprotkb/";
 
-    public async Task<Sequence> GetSequenceDetails(string uniprotId, HttpClient client) //register HttpClient as singleton in api
+    public async Task<Sequence> GetSequenceDetails(string uniprotId, HttpClient client)
     {
         try
         {
             HttpResponseMessage response = await client.GetAsync($"{_baseUrl}{uniprotId}.json");
-            response.EnsureSuccessStatusCode(); //throws exception if not success
+            response.EnsureSuccessStatusCode();
 
             string responseBody = await response.Content.ReadAsStringAsync();
             var json = JsonDocument.Parse(responseBody);
 
-            //extract the json properties and pass to sequence object
             var sequence = new Sequence
             {
                 uniqueIdentifier = uniprotId,
@@ -33,13 +32,11 @@ public class UniprotAPI : IUniprotAPI
             };
 
             json.Dispose();
-
             return sequence;
         }
         catch (HttpRequestException e)
         {
             Console.WriteLine(e.Message);
-
             throw e;
         }
     }

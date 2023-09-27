@@ -7,6 +7,7 @@ using Sequence_Pro.Tests.TestObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,5 +36,32 @@ public class UniprotAPI_UnitTests
 
         //Assert
         result.Should().BeEquivalentTo(expected);
+    }
+
+    [Theory]
+    [InlineData(HttpStatusCode.BadGateway)]
+    [InlineData(HttpStatusCode.Unauthorized)]
+    [InlineData(HttpStatusCode.Forbidden)]
+    [InlineData(HttpStatusCode.NotFound)]
+    [InlineData(HttpStatusCode.BadRequest)]
+    [InlineData(HttpStatusCode.GatewayTimeout)]
+    public async Task Test_GetSequenceDetails_Throws_HttpRequestException_When_Status_Code_Unsuccessful(HttpStatusCode statusCode)
+    {
+        //Arrange
+        var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+        mockHttpMessageHandler.Protected()
+            .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+            .ReturnsAsync(new HttpResponseMessage
+            {
+                Content = new StringContent(""),
+                StatusCode = statusCode
+            });
+        var httpClient = new HttpClient(mockHttpMessageHandler.Object);
+
+        //Act
+        Func<Task> act = async () => await _sut.GetSequenceDetails("P12345", httpClient);
+
+        //Assert
+        await act.Should().ThrowAsync<HttpRequestException>();
     }
 }
