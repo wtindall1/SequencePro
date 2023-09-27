@@ -12,11 +12,11 @@ public class UniprotAPI : IUniprotAPI
 {
     private const string _baseUrl = "https://www.uniprot.org/uniprotkb/";
 
-    public async Task<Sequence> GetSequenceDetails(string uniprotId, HttpClient client)
+    public async Task<Sequence> GetSequenceDetails(string uniprotId, HttpClient client, CancellationToken token = default)
     {
         try
         {
-            HttpResponseMessage response = await client.GetAsync($"{_baseUrl}{uniprotId}.json");
+            HttpResponseMessage response = await client.GetAsync($"{_baseUrl}{uniprotId}.json", token);
             response.EnsureSuccessStatusCode();
 
             string responseBody = await response.Content.ReadAsStringAsync();
