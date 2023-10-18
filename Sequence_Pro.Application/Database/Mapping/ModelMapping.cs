@@ -11,14 +11,23 @@ public static class ModelMapping
 {
     public static SequenceAnalysisEntity MapToEntity(this SequenceAnalysis sequenceAnalysis)
     {
+        var aminoAcidCompositions = sequenceAnalysis.AminoAcidComposition.Keys
+            .Select(x => new AminoAcidComposition
+            {
+                SequenceAnalysisId = sequenceAnalysis.Id,
+                AminoAcid = x,
+                Proportion = sequenceAnalysis.AminoAcidComposition[x]
+            })
+            .ToList();
+
         return new SequenceAnalysisEntity
         {
             Id = sequenceAnalysis.Id,
             UniprotId = sequenceAnalysis.UniprotId,
             MolecularWeight = sequenceAnalysis.MolecularWeight,
-            AminoAcidComposition = sequenceAnalysis.AminoAcidComposition,
             SequenceLength = sequenceAnalysis.SequenceLength,
-            ProteinSequence = sequenceAnalysis.ProteinSequence
+            ProteinSequence = sequenceAnalysis.ProteinSequence,
+            AminoAcidCompositions = aminoAcidCompositions
         };
     }
 
@@ -29,9 +38,11 @@ public static class ModelMapping
             Id = sequenceAnalysisEntity.Id,
             UniprotId = sequenceAnalysisEntity.UniprotId,
             MolecularWeight = sequenceAnalysisEntity.MolecularWeight,
-            AminoAcidComposition = sequenceAnalysisEntity.AminoAcidComposition,
             SequenceLength = sequenceAnalysisEntity.SequenceLength,
-            ProteinSequence = sequenceAnalysisEntity.ProteinSequence
+            ProteinSequence = sequenceAnalysisEntity.ProteinSequence,
+            
+            AminoAcidComposition = sequenceAnalysisEntity.AminoAcidCompositions
+            .ToDictionary(x => x.AminoAcid, x => x.Proportion)
         };
     }
 }
