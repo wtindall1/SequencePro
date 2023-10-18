@@ -21,7 +21,7 @@ public class SequenceProContext : DbContext
     {
         modelBuilder.Entity<SequenceAnalysisEntity>()
             .HasMany(e => e.AminoAcidCompositions)
-            .WithOne(e => e.SequenceAnalysisEntity)
+            .WithOne()
             .HasForeignKey("SequenceAnalysisId");
     }
 }

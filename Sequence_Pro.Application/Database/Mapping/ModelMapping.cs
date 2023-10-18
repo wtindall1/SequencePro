@@ -14,6 +14,7 @@ public static class ModelMapping
         var aminoAcidCompositions = sequenceAnalysis.AminoAcidComposition.Keys
             .Select(x => new AminoAcidComposition
             {
+                Id = Guid.NewGuid(),
                 SequenceAnalysisId = sequenceAnalysis.Id,
                 AminoAcid = x,
                 Proportion = sequenceAnalysis.AminoAcidComposition[x]

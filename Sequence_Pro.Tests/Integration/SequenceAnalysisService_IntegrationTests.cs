@@ -83,8 +83,8 @@ public class SequenceAnalysisService_IntegrationTests
     {
         //Arrange
         await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
-        var entity = SequenceAnalysisExample.Create().MapToEntity();
-        _testDbContext.SequenceAnalyses.Add(entity);
+        var entity = SequenceAnalysisExample.Create();
+        _testDbContext.SequenceAnalyses.Add(entity.MapToEntity());
         await _testDbContext.SaveChangesAsync();
         
         //Act
