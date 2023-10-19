@@ -20,10 +20,8 @@ public class SequenceProContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<SequenceAnalysisEntity>()
-            .Property(e => e.AminoAcidComposition)
-            .HasConversion(
-                v => JsonSerializer.Serialize(v, new JsonSerializerOptions()),
-                v => JsonSerializer.Deserialize<Dictionary<char,double>>(v, new JsonSerializerOptions())!)
-            .HasColumnType("json");
+            .HasMany(e => e.AminoAcidCompositions)
+            .WithOne()
+            .HasForeignKey("SequenceAnalysisId");
     }
 }

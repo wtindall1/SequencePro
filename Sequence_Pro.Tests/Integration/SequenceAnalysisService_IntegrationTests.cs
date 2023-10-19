@@ -57,6 +57,7 @@ public class SequenceAnalysisService_IntegrationTests
 
         //Assert
         var sequenceAnalysisQueried = await _testDbContext.SequenceAnalyses
+            .Include(x => x.AminoAcidCompositions)
             .Where(x => x.Id == sequenceAnalysisSaved.Id)
             .SingleOrDefaultAsync();
 
@@ -83,8 +84,8 @@ public class SequenceAnalysisService_IntegrationTests
     {
         //Arrange
         await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
-        var entity = SequenceAnalysisExample.Create().MapToEntity();
-        _testDbContext.SequenceAnalyses.Add(entity);
+        var entity = SequenceAnalysisExample.Create();
+        _testDbContext.SequenceAnalyses.Add(entity.MapToEntity());
         await _testDbContext.SaveChangesAsync();
         
         //Act

@@ -19,5 +19,5 @@ public class SequenceAnalysisEntity
 
     public required double MolecularWeight { get; set; }
 
-    public required Dictionary<char, double> AminoAcidComposition { get; set; }
+    public required IEnumerable<AminoAcidComposition> AminoAcidCompositions { get; set; }
 }

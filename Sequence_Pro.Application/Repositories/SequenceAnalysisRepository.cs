@@ -31,6 +31,7 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
     public async Task<SequenceAnalysis?> GetByIdAsync(Guid id, CancellationToken token = default)
     {
         var sequenceAnalysisEntity = await _dbContext.SequenceAnalyses
+            .Include(s => s.AminoAcidCompositions)
             .Where(s => s.Id == id)
             .SingleOrDefaultAsync(token);
 
@@ -44,6 +45,7 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
     public async Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId, CancellationToken token = default)
     {
         var sequenceAnalysisEntity = await _dbContext.SequenceAnalyses
+            .Include(s => s.AminoAcidCompositions)
             .Where(s => s.UniprotId == uniprotId)
             .FirstOrDefaultAsync(token);
 
@@ -57,6 +59,7 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
     public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default)
     {
         var sequenceAnalysisEntities = await _dbContext.SequenceAnalyses
+            .Include(s => s.AminoAcidCompositions)
             .ToListAsync(token);
 
         return sequenceAnalysisEntities.Select(x => x.MapToObject());
