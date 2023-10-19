@@ -57,6 +57,7 @@ public class SequenceAnalysisService_IntegrationTests
 
         //Assert
         var sequenceAnalysisQueried = await _testDbContext.SequenceAnalyses
+            .Include(x => x.AminoAcidCompositions)
             .Where(x => x.Id == sequenceAnalysisSaved.Id)
             .SingleOrDefaultAsync();
 

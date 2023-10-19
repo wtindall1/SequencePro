@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sequence_Pro.Application.Database;
@@ -11,9 +12,11 @@ using Sequence_Pro.Application.Database;
 namespace Sequence_Pro.Application.Migrations
 {
     [DbContext(typeof(SequenceProContext))]
-    partial class SequenceProContextModelSnapshot : ModelSnapshot
+    [Migration("20231019104325_AACompositionTable")]
+    partial class AACompositionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
