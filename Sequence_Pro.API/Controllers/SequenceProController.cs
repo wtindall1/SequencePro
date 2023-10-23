@@ -11,7 +11,6 @@ namespace Sequence_Pro.API.Controllers
     [ApiController]
     public class SequenceProController : ControllerBase
     {
-
         private readonly ISequenceAnalysisService _sequenceAnalysisService;
 
         public SequenceProController(ISequenceAnalysisService sequenceAnalysisService)

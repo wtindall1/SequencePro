@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "nUUCjAZWsXiasrrpf09RVyxKqC6FJmRMYEwbEctIOiKlDhOXN89dKMjeDyLLtWTFcNx1NHgM6QHgNpZFD3Fz3A==",
+  "dgSpecHash": "h+YJ8t+k+RZrIQ3Wm214SVy98li6Krvz+cXFFQuV85GLNlZkD86/S0oAvlZf11kaLXV1aSpyl3TM0N/lhxBUgA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Application\\Sequence_Pro.Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\autofac\\7.1.0\\autofac.7.1.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\dapper\\2.0.143\\dapper.2.0.143.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\fluentvalidation\\11.7.1\\fluentvalidation.11.7.1.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.7.1\\fluentvalidation.dependencyinjectionextensions.11.7.1.nupkg.sha512",
@@ -21,7 +22,8 @@
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.options\\7.0.0\\microsoft.extensions.options.7.0.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
-    "C:\\Users\\Will.Tindall\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512"
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512"
   ],
   "logs": []
 }
