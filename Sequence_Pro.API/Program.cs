@@ -52,7 +52,7 @@ builder.Services.ConfigureSwagger();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder 
-    => builder.RegisterModule(new ApplicationModule(config["Database:ConnectionString"]!)));
+    => builder.RegisterModule(new SequenceAnalysisModule(config["Database:ConnectionString"]!)));
 
 builder.Services.AddHttpClient();
 

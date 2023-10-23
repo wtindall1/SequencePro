@@ -14,11 +14,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Sequence_Pro.Application.IoC;
-public class ApplicationModule : Module
+public class SequenceAnalysisModule : Module
 {
     private readonly string _dbConnectionString;
 
-    public ApplicationModule(string dbConnectionString)
+    public SequenceAnalysisModule(string dbConnectionString)
     {
         _dbConnectionString = dbConnectionString;
     }
