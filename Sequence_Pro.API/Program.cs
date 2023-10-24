@@ -1,3 +1,5 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -6,6 +8,7 @@ using Sequence_Pro.API.Mapping;
 using Sequence_Pro.API.Swagger;
 using Sequence_Pro.Application;
 using Sequence_Pro.Application.Database;
+using Sequence_Pro.Application.IoC;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,11 +50,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureSwagger();
 
-builder.Services.AddApplication();
-builder.Services.AddDatabase(config["Database:ConnectionString"]!);
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder 
+    => builder.RegisterModule(new SequenceAnalysisModule(config["Database:ConnectionString"]!)));
 
 builder.Services.AddHttpClient();
-
 
 var app = builder.Build();
 

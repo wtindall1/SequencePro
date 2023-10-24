@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6s1xjbiybtB6mJvwfRJbEYsyTzF4uDrlWTR1W+BcB6i5Da4eIs+2+Wq2KeedDrrGSUunhGGo1bcLV2j27YIIJg==",
+  "dgSpecHash": "HFpfCjM5M40sTxZSnVnbjjoj/heWX77N1bTB8QddUaADmJEvg0aqj84x4f/SJN+PAZIwBPuMocGJ9a3TWXpDbw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Sequence_Pro.Tests\\Sequence_Pro.Tests.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\autofac\\7.1.0\\autofac.7.1.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\coverlet.collector\\3.2.0\\coverlet.collector.3.2.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\dapper\\2.0.143\\dapper.2.0.143.nupkg.sha512",
@@ -60,7 +61,7 @@
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.0\\system.configuration.configurationmanager.4.4.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
-    "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.3.0\\system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",
+    "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.7.1\\system.diagnostics.diagnosticsource.4.7.1.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.diagnostics.tools\\4.3.0\\system.diagnostics.tools.4.3.0.nupkg.sha512",
     "C:\\Users\\Will.Tindall\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",
