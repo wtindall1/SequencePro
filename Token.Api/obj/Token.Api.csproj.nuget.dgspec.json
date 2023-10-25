@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Token.Api\\Token.Api.csproj": {}
+    "C:\\Users\\Will.Tindall\\source\\repos\\SequencePro\\Token.Api\\Token.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Token.Api\\Token.Api.csproj": {
+    "C:\\Users\\Will.Tindall\\source\\repos\\SequencePro\\Token.Api\\Token.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Token.Api\\Token.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Will.Tindall\\source\\repos\\SequencePro\\Token.Api\\Token.Api.csproj",
         "projectName": "Token.Api",
-        "projectPath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Token.Api\\Token.Api.csproj",
+        "projectPath": "C:\\Users\\Will.Tindall\\source\\repos\\SequencePro\\Token.Api\\Token.Api.csproj",
         "packagesPath": "C:\\Users\\Will.Tindall\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Will.Tindall\\source\\repos\\sequence_pro\\Token.Api\\obj\\",
+        "outputPath": "C:\\Users\\Will.Tindall\\source\\repos\\SequencePro\\Token.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Will.Tindall\\AppData\\Roaming\\NuGet\\NuGet.Config",
