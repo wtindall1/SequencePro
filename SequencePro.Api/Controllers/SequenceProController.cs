@@ -21,7 +21,7 @@ namespace SequencePro.API.Controllers
         [Authorize(AuthConstants.TrustedUserPolicyName)]
         [HttpPost(ApiEndpoints.SequenceAnalysis.Create)]
         public async Task<IActionResult> Create([FromBody] CreateSequenceAnalysisRequest request,
-            CancellationToken token)
+            CancellationToken token = default)
         {
             var sequenceAnalysis = await _sequenceAnalysisService.CreateAsync(request.UniprotId, token);
             var sequenceAnalysisResponse = sequenceAnalysis.MapToResponse();
@@ -31,7 +31,7 @@ namespace SequencePro.API.Controllers
 
         [HttpGet(ApiEndpoints.SequenceAnalysis.Get)]
         public async Task<IActionResult> Get([FromRoute] string IdOrUniprotId,
-            CancellationToken token)
+            CancellationToken token = default)
         {
             //check if search is guid & choose matching get method
             var sequenceAnalysis = Guid.TryParse(IdOrUniprotId, out var id)
@@ -47,7 +47,7 @@ namespace SequencePro.API.Controllers
         }
 
         [HttpGet(ApiEndpoints.SequenceAnalysis.GetAll)]
-        public async Task<IActionResult> GetAll(CancellationToken token)
+        public async Task<IActionResult> GetAll(CancellationToken token = default)
         {
             var allAnalyses = await _sequenceAnalysisService.GetAllAsync(token);
 
@@ -58,7 +58,7 @@ namespace SequencePro.API.Controllers
         [Authorize(AuthConstants.AdminUserPolicyName)]
         [HttpDelete(ApiEndpoints.SequenceAnalysis.Delete)]
         public async Task<IActionResult> Delete([FromRoute] Guid Id,
-            CancellationToken token)
+            CancellationToken token = default)
         {
             var deleted = await _sequenceAnalysisService.DeleteByIdAsync(Id, token);
             if (!deleted)
