@@ -22,6 +22,8 @@ using Autofac;
 using Testcontainers.PostgreSql;
 using SequencePro.API.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using SequencePro.Integration.Tests.TestObjects;
+using SequencePro.Application.Database.Models;
 
 namespace SequencePro.Integration.Tests.ApiTests;
 public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixture>
@@ -34,12 +36,14 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
     {
         _container = fixture.Container!;
         _testDbContext = _container.Resolve<SequenceProContext>();
+        _testDbContext.Database.EnsureDeleted();
         _testDbContext.Database.EnsureCreated();
+
         _sut = _container.Resolve<SequenceProController>();
     }
 
     [Fact]
-    public async Task CreateAsync_SavesRecordToDb_WhenUniprotIdIsValid()
+    public async Task Create_SavesRecordToDb_WhenUniprotIdIsValid()
     {
         //Arrange
         var request = new CreateSequenceAnalysisRequest
@@ -59,5 +63,27 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
 
         result.StatusCode.Should().Be(201);
         sequenceAnalysisResponse.Should().BeEquivalentTo(expected);
+    }
+
+    [Fact]
+    public async Task GetAll_ReturnsRecordsFromDatabase()
+    {
+        //Arrange
+        var entities = new List<SequenceAnalysisEntity>();
+        for (int i = 0; i < 10; i++)
+        {
+            entities.Add(SequenceAnalysisExample.Create().MapToEntity());
+        }
+        _testDbContext.AddRange(entities);
+        await _testDbContext.SaveChangesAsync();
+
+        //Act
+        var result = (OkObjectResult)await _sut.GetAll();
+        var response = (AllAnalysesResponse)result.Value!;
+
+        //Assert
+        result.StatusCode.Should().Be(200);
+        response.Items.Should().HaveSameCount(entities);
+        entities.ForEach(x => response.Items.Should().ContainEquivalentOf(x.MapToObject()));
     }
 }
