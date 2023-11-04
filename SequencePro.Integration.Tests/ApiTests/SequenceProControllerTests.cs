@@ -24,6 +24,7 @@ using SequencePro.API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using SequencePro.Integration.Tests.TestObjects;
 using SequencePro.Application.Database.Models;
+using static Dapper.SqlMapper;
 
 namespace SequencePro.Integration.Tests.ApiTests;
 public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixture>
@@ -86,4 +87,100 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         response.Items.Should().HaveSameCount(entities);
         entities.ForEach(x => response.Items.Should().ContainEquivalentOf(x.MapToObject()));
     }
+
+    [Fact]
+    public async Task GetAll_ReturnsEmptyCollection_WhenNoRecordExist()
+    {
+        //Act
+        var result = (OkObjectResult)await _sut.GetAll();
+        var response = (AllAnalysesResponse)result.Value!;
+
+        //Assert
+        result.StatusCode.Should().Be(200);
+        response.Items.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task Get_ReturnsRecord_MatchingById()
+    {
+        //Arrange
+        var entity = SequenceAnalysisExample.Create().MapToEntity();
+        _testDbContext.Add(entity);
+        await _testDbContext.SaveChangesAsync();
+
+        //Act
+        var result = (OkObjectResult)await _sut.Get(entity.Id.ToString());
+
+        //Assert
+        result.StatusCode.Should().Be(200);
+        result.Value.Should().BeEquivalentTo(entity.MapToObject());
+    }
+
+    [Fact]
+    public async Task Get_ReturnsRecord_MatchingByUniprotId()
+    {
+        //Arrange
+        var entity = SequenceAnalysisExample.Create().MapToEntity();
+        _testDbContext.Add(entity);
+        await _testDbContext.SaveChangesAsync();
+
+        //Act
+        var result = (OkObjectResult)await _sut.Get(entity.UniprotId.ToString());
+
+        //Assert
+        result.StatusCode.Should().Be(200);
+        result.Value.Should().BeEquivalentTo(entity.MapToObject());
+    }
+
+    [Fact]
+    public async Task Get_ReturnsNotFound_WhenNoRecordMatchesId()
+    {
+        //Act
+        var result = (NotFoundResult)await _sut.Get(Guid.NewGuid().ToString());
+
+        //Assert
+        result.StatusCode.Should().Be(404);
+    }
+
+    [Fact]
+    public async Task Get_ReturnsNotFound_WhenNoRecordMatchesUniprotId()
+    {        
+        //Act
+        var result = (NotFoundResult)await _sut.Get("P12567");
+
+        //Assert
+        result.StatusCode.Should().Be(404);
+    }
+
+    [Fact]
+    public async Task Delete_RemovesRecordWithMatchingId()
+    {
+        //Arrange
+        var entity = SequenceAnalysisExample.Create().MapToEntity();
+        _testDbContext.Add(entity);
+        await _testDbContext.SaveChangesAsync();
+
+        //Act
+        var result = (OkResult)await _sut.Delete(entity.Id);
+
+        //Assert
+        var exists = _testDbContext.SequenceAnalyses
+            .Where(x => x.Id == entity.Id)
+            .Any();
+
+        result.StatusCode.Should().Be(200);
+        exists.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Delete_ReturnsNotFound_WhenNoMatchingRecordExists()
+    {
+        //Act
+        var result = (NotFoundResult)await _sut.Delete(Guid.NewGuid());
+
+        //Assert
+        result.StatusCode.Should().Be(404);
+    }
+
+
 }
