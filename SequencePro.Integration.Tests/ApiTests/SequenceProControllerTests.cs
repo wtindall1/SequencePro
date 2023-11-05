@@ -53,17 +53,18 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         };
 
         //Act
-        var result = (CreatedAtActionResult)await _sut.Create(request);
-        var sequenceAnalysisResponse = (SequenceAnalysisResponse)result.Value!;
+        var result = await _sut.Create(request);
 
         //Assert
-        var entity = await _testDbContext.SequenceAnalyses
-            .Where(x => x.Id == sequenceAnalysisResponse.Id)
-            .SingleOrDefaultAsync();
-        var expected = entity!.MapToObject();
+        var createdAtActionResult = result.Should().BeOfType<CreatedAtActionResult>();
+        createdAtActionResult.Subject.StatusCode.Should().Be(201);
 
-        result.StatusCode.Should().Be(201);
-        sequenceAnalysisResponse.Should().BeEquivalentTo(expected);
+        var sequenceAnalysisResponse = createdAtActionResult.Subject.Value.Should().BeOfType<SequenceAnalysisResponse>();
+        var entityFromDb = await _testDbContext.SequenceAnalyses
+            .Where(x => x.Id == sequenceAnalysisResponse.Subject.Id)
+            .SingleOrDefaultAsync();
+        var expected = entityFromDb!.MapToObject();
+        sequenceAnalysisResponse.Subject.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
@@ -79,25 +80,29 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         await _testDbContext.SaveChangesAsync();
 
         //Act
-        var result = (OkObjectResult)await _sut.GetAll();
-        var response = (AllAnalysesResponse)result.Value!;
+        var result = await _sut.GetAll();
 
         //Assert
-        result.StatusCode.Should().Be(200);
-        response.Items.Should().HaveSameCount(entities);
-        entities.ForEach(x => response.Items.Should().ContainEquivalentOf(x.MapToObject()));
+        var objectResult = result.Should().BeOfType<OkObjectResult>();
+        objectResult.Subject.StatusCode.Should().Be(200);
+
+        var response = objectResult.Subject.Value.Should().BeOfType<AllAnalysesResponse>();
+        response.Subject.Items.Should().HaveSameCount(entities);
+        entities.ForEach(x => response.Subject.Items.Should().ContainEquivalentOf(x.MapToObject()));
     }
 
     [Fact]
     public async Task GetAll_ReturnsEmptyCollection_WhenNoRecordExist()
     {
         //Act
-        var result = (OkObjectResult)await _sut.GetAll();
-        var response = (AllAnalysesResponse)result.Value!;
+        var result = await _sut.GetAll();
 
         //Assert
-        result.StatusCode.Should().Be(200);
-        response.Items.Should().BeEmpty();
+        var objectResult = result.Should().BeOfType<OkObjectResult>();
+        objectResult.Subject.StatusCode.Should().Be(200);
+
+        var response = objectResult.Subject.Value.Should().BeOfType<AllAnalysesResponse>();
+        response.Subject.Items.Should().BeEmpty();
     }
 
     [Fact]
@@ -112,8 +117,11 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         var result = (OkObjectResult)await _sut.Get(entity.Id.ToString());
 
         //Assert
-        result.StatusCode.Should().Be(200);
-        result.Value.Should().BeEquivalentTo(entity.MapToObject());
+        var objectResult = result.Should().BeOfType<OkObjectResult>();
+        objectResult.Subject.StatusCode.Should().Be(200);
+
+        var response = objectResult.Subject.Value.Should().BeOfType<SequenceAnalysisResponse>();
+        response.Subject.Should().BeEquivalentTo(entity.MapToObject());
     }
 
     [Fact]
@@ -125,31 +133,34 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         await _testDbContext.SaveChangesAsync();
 
         //Act
-        var result = (OkObjectResult)await _sut.Get(entity.UniprotId.ToString());
+        var result = await _sut.Get(entity.UniprotId.ToString());
 
         //Assert
-        result.StatusCode.Should().Be(200);
-        result.Value.Should().BeEquivalentTo(entity.MapToObject());
+        var objectResult = result.Should().BeOfType<OkObjectResult>();
+        objectResult.Subject.StatusCode.Should().Be(200);
+
+        var response = objectResult.Subject.Value.Should().BeOfType<SequenceAnalysisResponse>();
+        response.Subject.Should().BeEquivalentTo(entity.MapToObject());
     }
 
     [Fact]
     public async Task Get_ReturnsNotFound_WhenNoRecordMatchesId()
     {
         //Act
-        var result = (NotFoundResult)await _sut.Get(Guid.NewGuid().ToString());
+        var result = await _sut.Get(Guid.NewGuid().ToString());
 
         //Assert
-        result.StatusCode.Should().Be(404);
+        result.Should().BeOfType<NotFoundResult>();
     }
 
     [Fact]
     public async Task Get_ReturnsNotFound_WhenNoRecordMatchesUniprotId()
     {        
         //Act
-        var result = (NotFoundResult)await _sut.Get("P12567");
+        var result = await _sut.Get("P12567");
 
         //Assert
-        result.StatusCode.Should().Be(404);
+        result.Should().BeOfType<NotFoundResult>();
     }
 
     [Fact]
@@ -161,14 +172,14 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         await _testDbContext.SaveChangesAsync();
 
         //Act
-        var result = (OkResult)await _sut.Delete(entity.Id);
+        var result = await _sut.Delete(entity.Id);
 
         //Assert
         var exists = _testDbContext.SequenceAnalyses
             .Where(x => x.Id == entity.Id)
             .Any();
 
-        result.StatusCode.Should().Be(200);
+        result.Should().BeOfType<OkResult>();
         exists.Should().BeFalse();
     }
 
@@ -176,10 +187,10 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
     public async Task Delete_ReturnsNotFound_WhenNoMatchingRecordExists()
     {
         //Act
-        var result = (NotFoundResult)await _sut.Delete(Guid.NewGuid());
+        var result = await _sut.Delete(Guid.NewGuid());
 
         //Assert
-        result.StatusCode.Should().Be(404);
+        result.Should().BeOfType<NotFoundResult>();
     }
 
 
