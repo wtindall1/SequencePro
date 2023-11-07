@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "KL3qs7X1nN1v9xfAz32tP93PqLDOkfoAImviCWnLvbk=",
+  "Source": "SequencePro.Api",
+  "BasePath": "_content/SequencePro.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
