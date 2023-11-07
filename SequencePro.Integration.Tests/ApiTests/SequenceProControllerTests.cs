@@ -1,30 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using SequencePro.Api;
-using SequencePro.Contracts.Requests;
-using System.Text.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http.Headers;
-using SequencePro.API;
+﻿using SequencePro.Contracts.Requests;
 using Microsoft.EntityFrameworkCore;
 using SequencePro.Application.Database;
-using System.Net.Http.Json;
 using SequencePro.Contracts.Responses;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using System.Net;
 using SequencePro.Application.Database.Mapping;
 using SequencePro.Integration.Tests.Fixtures;
 using Autofac;
-using Testcontainers.PostgreSql;
 using SequencePro.API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using SequencePro.Integration.Tests.TestObjects;
 using SequencePro.Application.Database.Models;
-using static Dapper.SqlMapper;
 
 namespace SequencePro.Integration.Tests.ApiTests;
 public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixture>
@@ -175,10 +160,15 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         var result = await _sut.Delete(entity.Id);
 
         //Assert
-        var exists = _testDbContext.SequenceAnalyses
-            .Where(x => x.Id == entity.Id)
-            .Any();
-
+        bool exists;
+        using (var scope = _container.BeginLifetimeScope())
+        {
+            var testDbContext = scope.Resolve<SequenceProContext>();
+            exists = _testDbContext.SequenceAnalyses
+                .Where(x => x.Id == entity.Id)
+                .Any();
+        }
+         
         result.Should().BeOfType<OkResult>();
         exists.Should().BeFalse();
     }
