@@ -448,3 +448,5 @@ C:\Users\Will.Tindall\source\repos\SequencePro\SequencePro.Integration.Tests\bin
 C:\Users\Will.Tindall\source\repos\SequencePro\SequencePro.Integration.Tests\bin\Debug\net7.0\SshNet.Security.Cryptography.dll
 C:\Users\Will.Tindall\source\repos\SequencePro\SequencePro.Integration.Tests\bin\Debug\net7.0\Testcontainers.dll
 C:\Users\Will.Tindall\source\repos\SequencePro\SequencePro.Integration.Tests\bin\Debug\net7.0\Testcontainers.PostgreSql.dll
+C:\Users\Will.Tindall\source\repos\SequencePro\SequencePro.Integration.Tests\bin\Debug\net7.0\Castle.Core.dll
+C:\Users\Will.Tindall\source\repos\SequencePro\SequencePro.Integration.Tests\bin\Debug\net7.0\Moq.dll
