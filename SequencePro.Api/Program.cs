@@ -3,6 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SequencePro.Api.Health;
 using SequencePro.API.Auth;
 using SequencePro.API.Mapping;
 using SequencePro.API.Swagger;
@@ -56,6 +57,9 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddHealthChecks()
+    .AddCheck<DatabaseHealthCheck>(DatabaseHealthCheck.Name);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -72,5 +76,6 @@ app.UseAuthorization();
 
 app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
+app.MapHealthChecks("_health");
 
 app.Run();
