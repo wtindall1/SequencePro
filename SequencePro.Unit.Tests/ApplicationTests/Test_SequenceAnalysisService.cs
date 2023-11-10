@@ -14,7 +14,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SequencePro.Unit.Tests.Unit;
+namespace SequencePro.Unit.Tests.ApplicationTests;
 public class Test_SequenceAnalysisService
 {
     private readonly SequenceAnalysisService _sut;

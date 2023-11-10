@@ -11,7 +11,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SequencePro.Unit.Tests.Unit;
+namespace SequencePro.Unit.Tests.ApplicationTests;
 public class UniprotAPI_UnitTests
 {
     private UniprotAPI _sut = new();
