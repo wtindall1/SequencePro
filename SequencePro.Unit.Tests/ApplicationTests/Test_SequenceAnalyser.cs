@@ -5,7 +5,7 @@ using SequencePro.Application.Models;
 using SequencePro.Application.Services;
 using SequencePro.Unit.Tests.TestObjects;
 
-namespace SequencePro.Unit.Tests.Unit;
+namespace SequencePro.Unit.Tests.ApplicationTests;
 
 
 public class Test_SequenceAnalyser

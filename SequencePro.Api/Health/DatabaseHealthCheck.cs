@@ -18,7 +18,7 @@ public class DatabaseHealthCheck : IHealthCheck
     {
         var isHealthy = await _dbContext.Database.CanConnectAsync(cancellationToken);
 
-        if(isHealthy)
+        if (isHealthy)
         {
             return HealthCheckResult.Healthy();
         }
