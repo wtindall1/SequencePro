@@ -31,9 +31,8 @@ public class SequenceAnalysisService : ISequenceAnalysisService
     public async Task<SequenceAnalysis> CreateAsync(string uniprotId, CancellationToken token = default)
     {
         _requestValidator.ValidateAndThrow(uniprotId);
-        
-        //create and analyse sequence
-        var sequence =  await _uniprotAPI.GetSequenceDetails(uniprotId, _httpClient);
+
+        var sequence =  await _uniprotAPI.GetSequenceDetails(uniprotId, _httpClient, token);
         var sequenceAnalysis = _sequenceAnalyser.Analyse(sequence);
         
         await _repository.CreateAsync(sequenceAnalysis, token);

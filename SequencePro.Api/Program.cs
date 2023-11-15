@@ -56,6 +56,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddLogging(builder => builder.AddConsole());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

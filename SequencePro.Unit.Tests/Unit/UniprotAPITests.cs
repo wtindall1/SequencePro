@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.Protected;
+using SequencePro.Application.Logging;
 using SequencePro.Application.Models;
 using SequencePro.Application.Services;
 using SequencePro.Unit.Tests.TestObjects;
@@ -12,12 +14,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SequencePro.Unit.Tests.Unit;
-public class UniprotAPI_UnitTests
+public class UniprotAPITests
 {
-    private UniprotAPI _sut = new();
+    private Mock<ILoggerAdapter> _mockLogger = new();
+    private UniprotAPI _sut;
+
+    public UniprotAPITests()
+    {
+        _sut = new UniprotAPI(_mockLogger.Object);
+    }
 
     [Fact]
-    public async Task Test_GetSequenceDetails_Returns_Correct_Sequence_From_Response_Body_Asynchronously()
+    public async Task GetSequenceDetails_ReturnsSequence_AndLogsSuccessMessage()
     {
         //Arrange
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -36,7 +44,14 @@ public class UniprotAPI_UnitTests
 
         //Assert
         result.Should().BeEquivalentTo(expected);
+        _mockLogger.Verify(
+            l => l.LogInformation(
+                "Sequence details for UniprotId {1} retrieved successfully.",
+                expected.uniqueIdentifier),
+            Times.Once);
     }
+
+  
 
     [Theory]
     [InlineData(HttpStatusCode.BadGateway)]
@@ -45,7 +60,7 @@ public class UniprotAPI_UnitTests
     [InlineData(HttpStatusCode.NotFound)]
     [InlineData(HttpStatusCode.BadRequest)]
     [InlineData(HttpStatusCode.GatewayTimeout)]
-    public async Task Test_GetSequenceDetails_Throws_HttpRequestException_When_Status_Code_Unsuccessful(HttpStatusCode statusCode)
+    public async Task GetSequenceDetails_ThrowsAndLogsException_WhenStatusCodeIsUnsuccessful(HttpStatusCode statusCode)
     {
         //Arrange
         var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
@@ -63,5 +78,9 @@ public class UniprotAPI_UnitTests
 
         //Assert
         await act.Should().ThrowAsync<HttpRequestException>();
+        _mockLogger.Verify(l =>
+            l.LogError(
+                It.IsAny<HttpRequestException>(),
+                It.IsAny<String>()));
     }
 }

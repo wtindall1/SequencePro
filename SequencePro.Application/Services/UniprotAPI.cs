@@ -5,12 +5,20 @@ using System.Text.Json;
 using SequencePro.Application.Interfaces;
 using SequencePro.Application.Models;
 using System.Net;
+using Microsoft.Extensions.Logging;
+using SequencePro.Application.Logging;
 
 namespace SequencePro.Application.Services;
 
 public class UniprotAPI : IUniprotAPI
 {
     private const string _baseUrl = "https://www.uniprot.org/uniprotkb/";
+    private ILoggerAdapter _logger;
+
+    public UniprotAPI(ILoggerAdapter loggerAdapter)
+    {
+        _logger = loggerAdapter;
+    }
 
     public async Task<Sequence> GetSequenceDetails(string uniprotId, HttpClient client, CancellationToken token = default)
     {
@@ -32,12 +40,14 @@ public class UniprotAPI : IUniprotAPI
             };
 
             json.Dispose();
+            _logger.LogInformation(
+                "Sequence details for UniprotId {1} retrieved successfully.", uniprotId);
             return sequence;
         }
-        catch (HttpRequestException e)
+        catch (HttpRequestException ex)
         {
-            Console.WriteLine(e.Message);
-            throw e;
+            _logger.LogError(ex, ex.Message);
+            throw ex;
         }
     }
 }
