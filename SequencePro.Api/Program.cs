@@ -57,6 +57,8 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddLogging(builder => builder.AddConsole());
+
 builder.Services.AddHealthChecks()
     .AddCheck<DatabaseHealthCheck>(DatabaseHealthCheck.Name);
 

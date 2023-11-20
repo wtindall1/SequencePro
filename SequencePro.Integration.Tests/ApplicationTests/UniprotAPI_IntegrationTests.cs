@@ -3,6 +3,9 @@ using SequencePro.Application.Services;
 using SequencePro.Application.Models;
 using System.Runtime.CompilerServices;
 using SequencePro.Application.Interfaces;
+using SequencePro.Application.Logging;
+using Moq;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace SequencePro.Integration.Tests.ApplicationTests;
 
@@ -11,11 +14,13 @@ public class UniprotAPI_IntegrationTests : IClassFixture<HttpClientFixture>
 
     private readonly HttpClient _httpClient;
     private readonly IUniprotAPI _uniprotAPI;
+    private readonly Mock<ILoggerAdapter> _mockLogger;
 
     public UniprotAPI_IntegrationTests(HttpClientFixture httpClientFixture)
     {
         _httpClient = httpClientFixture.httpClient;
-        _uniprotAPI = new UniprotAPI();
+        _mockLogger = new Mock<ILoggerAdapter>();
+        _uniprotAPI = new UniprotAPI(_mockLogger.Object);
     }
 
     [Fact]

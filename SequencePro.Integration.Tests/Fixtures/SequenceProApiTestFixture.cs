@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using SequencePro.API.Controllers;
 using SequencePro.Application.Database;
 using SequencePro.Application.Interfaces;
 using SequencePro.Application.IoC;
+using SequencePro.Application.Logging;
 using SequencePro.Integration.Tests.TestObjects;
 using System;
 using System.Collections.Generic;
@@ -36,6 +38,11 @@ public class SequenceProApiTestFixture : IAsyncLifetime
         builder.RegisterModule(new SequenceAnalysisModule(_dbContainer.GetConnectionString()));
         builder.Register(c => new HttpClient()).As<HttpClient>();
         builder.RegisterType<SequenceProController>().InstancePerLifetimeScope();
+
+        builder.RegisterInstance(new LoggerFactory())
+            .As<ILoggerFactory>();
+        builder.RegisterGeneric(typeof(Logger<>))
+           .As(typeof(ILogger<>));
 
         var mockUniprotAPI = new Mock<IUniprotAPI>();
         mockUniprotAPI
