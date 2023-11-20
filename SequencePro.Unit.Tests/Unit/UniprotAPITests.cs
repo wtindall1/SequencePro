@@ -51,8 +51,6 @@ public class UniprotAPITests
             Times.Once);
     }
 
-  
-
     [Theory]
     [InlineData(HttpStatusCode.BadGateway)]
     [InlineData(HttpStatusCode.Unauthorized)]
