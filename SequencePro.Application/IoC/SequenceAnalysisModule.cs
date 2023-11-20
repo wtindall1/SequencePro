@@ -4,6 +4,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using SequencePro.Application.Database;
 using SequencePro.Application.Interfaces;
+using SequencePro.Application.Logging;
 using SequencePro.Application.Repositories;
 using SequencePro.Application.Services;
 using SequencePro.Application.Validators;
@@ -29,6 +30,8 @@ public class SequenceAnalysisModule : Module
         builder.RegisterType<RequestValidator>().As<IValidator<string>>();
         builder.RegisterType<SequenceAnalysisRepository>().As<ISequenceAnalysisRepository>();
         builder.RegisterType<SequenceAnalysisService>().As<ISequenceAnalysisService>();
+
+        builder.RegisterType<LoggerAdapter>().AsImplementedInterfaces();
 
         builder.Register(x =>
         {

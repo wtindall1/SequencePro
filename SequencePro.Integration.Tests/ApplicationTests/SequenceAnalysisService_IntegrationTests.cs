@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using SequencePro.Application.Database;
 using SequencePro.Application.Database.Mapping;
 using SequencePro.Application.Interfaces;
+using SequencePro.Application.Logging;
 using SequencePro.Application.Models;
 using SequencePro.Application.Repositories;
 using SequencePro.Application.Services;
@@ -17,6 +19,7 @@ public class SequenceAnalysisService_IntegrationTests
     private readonly SequenceProContext _testDbContext;
     private readonly ISequenceAnalysisRepository _repository;
     private readonly HttpClient _httpClient;
+    private readonly Mock<ILoggerAdapter> _mockLogger;
     private readonly IUniprotAPI _uniprotAPI;
     private readonly ISequenceAnalyser _sequenceAnalyser;
     private readonly IValidator<string> _requestValidator;
@@ -29,12 +32,13 @@ public class SequenceAnalysisService_IntegrationTests
         //set up system under test
         _requestValidator = new RequestValidator();
         _httpClient = new HttpClient();
-        _uniprotAPI = new UniprotAPI();
+        _mockLogger = new Mock<ILoggerAdapter>();
+        _uniprotAPI = new UniprotAPI(_mockLogger.Object);
         _sequenceAnalyser = new SequenceAnalyser();
         _testDbContext = new SequenceProContext(new DbContextOptionsBuilder<SequenceProContext>()
             .UseNpgsql(_testDbConnectionString)
             .Options);
-        _repository = new SequenceAnalysisRepository(_testDbContext);
+        _repository = new SequenceAnalysisRepository(_testDbContext, _mockLogger.Object);
         _testDbManager = new TestDbManager(_testDbConnectionString);
 
         _sut = new SequenceAnalysisService(_repository, _httpClient, _uniprotAPI, _sequenceAnalyser, _requestValidator);
