@@ -13,7 +13,7 @@ namespace SequencePro.Application.Services;
 public class UniprotAPI : IUniprotAPI
 {
     private const string _baseUrl = "https://www.uniprot.org/uniprotkb/";
-    private ILoggerAdapter _logger;
+    private readonly ILoggerAdapter _logger;
 
     public UniprotAPI(ILoggerAdapter loggerAdapter)
     {
@@ -27,7 +27,7 @@ public class UniprotAPI : IUniprotAPI
             HttpResponseMessage response = await client.GetAsync($"{_baseUrl}{uniprotId}.json", token);
             response.EnsureSuccessStatusCode();
 
-            string responseBody = await response.Content.ReadAsStringAsync();
+            string responseBody = await response.Content.ReadAsStringAsync(token);
             var json = JsonDocument.Parse(responseBody);
 
             var sequence = new Sequence

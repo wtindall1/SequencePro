@@ -1,4 +1,4 @@
-﻿namespace SequencePro.API.Auth;
+﻿namespace SequencePro.Api.Constants;
 
 public static class AuthConstants
 {
