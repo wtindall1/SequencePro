@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SequencePro.API.Auth;
+using Microsoft.AspNetCore.OutputCaching;
+using SequencePro.Api.Constants;
 using SequencePro.API.Mapping;
 using SequencePro.Application.Interfaces;
 using SequencePro.Contracts.Requests;
@@ -12,10 +13,14 @@ namespace SequencePro.API.Controllers
     public class SequenceProController : ControllerBase
     {
         private readonly ISequenceAnalysisService _sequenceAnalysisService;
+        private readonly IOutputCacheStore _outputCacheStore;
 
-        public SequenceProController(ISequenceAnalysisService sequenceAnalysisService)
+        public SequenceProController(
+            ISequenceAnalysisService sequenceAnalysisService,
+            IOutputCacheStore outputCacheStore)
         {
             _sequenceAnalysisService = sequenceAnalysisService;
+            _outputCacheStore = outputCacheStore;
         }
 
         [Authorize(AuthConstants.TrustedUserPolicyName)]
@@ -24,12 +29,14 @@ namespace SequencePro.API.Controllers
             CancellationToken token = default)
         {
             var sequenceAnalysis = await _sequenceAnalysisService.CreateAsync(request.UniprotId, token);
+            await _outputCacheStore.EvictByTagAsync(CachingConstants.SequenceAnalysisTag, token);
+            
             var sequenceAnalysisResponse = sequenceAnalysis.MapToResponse();
-
             return CreatedAtAction(nameof(Get), new { IdOrUniprotId = sequenceAnalysis.UniprotId }, sequenceAnalysisResponse);
         }
 
         [HttpGet(ApiEndpoints.SequenceAnalysis.Get)]
+        [OutputCache(PolicyName = CachingConstants.Expire30PolicyName)]
         public async Task<IActionResult> Get([FromRoute] string IdOrUniprotId,
             CancellationToken token = default)
         {
@@ -47,6 +54,7 @@ namespace SequencePro.API.Controllers
         }
 
         [HttpGet(ApiEndpoints.SequenceAnalysis.GetAll)]
+        [OutputCache(PolicyName = CachingConstants.Expire30PolicyName)]
         public async Task<IActionResult> GetAll(CancellationToken token = default)
         {
             var allAnalyses = await _sequenceAnalysisService.GetAllAsync(token);
@@ -61,12 +69,13 @@ namespace SequencePro.API.Controllers
             CancellationToken token = default)
         {
             var deleted = await _sequenceAnalysisService.DeleteByIdAsync(Id, token);
+            await _outputCacheStore.EvictByTagAsync(CachingConstants.SequenceAnalysisTag, token);
+
             if (!deleted)
             {
                 return NotFound();
             }
             return Ok();
         }
-
     }
 }

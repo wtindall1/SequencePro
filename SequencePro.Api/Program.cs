@@ -3,13 +3,14 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SequencePro.Api.Constants;
 using SequencePro.Api.Health;
-using SequencePro.API.Auth;
 using SequencePro.API.Mapping;
 using SequencePro.API.Swagger;
 using SequencePro.Application;
 using SequencePro.Application.Database;
 using SequencePro.Application.IoC;
+using SequencePro.Api.Caching;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,11 @@ builder.Services.AddAuthorization(x =>
         c.User.HasClaim(m => m is { Type: AuthConstants.TrustedUserClaimName, Value: "true" })));
 });
 
+builder.Services.AddOutputCache(options =>
+{
+    options.AddPolicy(CachingConstants.Expire30PolicyName, AuthenticatedOutputCachePolicy.Instance);
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureSwagger();
@@ -75,6 +81,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseOutputCache();
 
 app.UseMiddleware<ValidationMappingMiddleware>();
 app.MapControllers();
