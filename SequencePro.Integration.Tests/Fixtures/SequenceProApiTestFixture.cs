@@ -19,11 +19,11 @@ namespace SequencePro.Integration.Tests.Fixtures;
 public class SequenceProApiTestFixture : IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer =
-    new PostgreSqlBuilder()
-    .WithDatabase("testdb")
-    .WithUsername("user")
-    .WithPassword("changeme")
-    .Build();
+        new PostgreSqlBuilder()
+        .WithDatabase("testdb")
+        .WithUsername("user")
+        .WithPassword("changeme")
+        .Build();
 
     public SequenceProApiTestFixture()
     {

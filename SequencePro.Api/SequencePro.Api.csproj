@@ -23,4 +23,8 @@
     <ProjectReference Include="..\SequencePro.Contracts\SequencePro.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+	<InternalsVisibleTo Include="SequencePro.Integration.Tests" />
+  </ItemGroup>
+
 </Project>
