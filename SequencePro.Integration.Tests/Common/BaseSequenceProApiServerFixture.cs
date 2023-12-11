@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Autofac;
+using Microsoft.AspNetCore.Hosting;
+using SequencePro.Application.IoC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +22,17 @@ public abstract class BaseSequenceProApiServerFixture
             .WithUsername("user")
             .WithPassword("changeme")
             .Build();
-        }
+
+        _factory
+            .ConfigureTestContainer(ConfigureServices)
+            .CreateClient();
+    }
+
+    public void ConfigureServices(ContainerBuilder builder)
+    {
+        builder.RegisterModule(new SequenceAnalysisModule(
+            _dbContainer.GetConnectionString()));
+    }
 
     public HttpClient CreateClient()
     {
