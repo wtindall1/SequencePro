@@ -1,18 +1,23 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Moq;
+using SequencePro.Application.Database;
+using SequencePro.Application.Interfaces;
 using SequencePro.Application.IoC;
+using SequencePro.Integration.Tests.TestObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Testcontainers.PostgreSql;
 
 namespace SequencePro.Integration.Tests.Common;
-public abstract class BaseSequenceProApiServerFixture
+public abstract class BaseSequenceProApiServerFixture : IAsyncLifetime
 {
     private readonly AutofacWebApiServerFactory<Program> _factory = new();
-
     private readonly PostgreSqlContainer _dbContainer;
 
     public BaseSequenceProApiServerFixture()
@@ -22,8 +27,18 @@ public abstract class BaseSequenceProApiServerFixture
             .WithUsername("user")
             .WithPassword("changeme")
             .Build();
+    }
 
-        _factory
+    public SequenceProContext CreateTestDbContext()
+    {
+        var optionsBuilder = new DbContextOptionsBuilder<SequenceProContext>();
+        optionsBuilder.UseNpgsql(_dbContainer.GetConnectionString());
+        return new SequenceProContext(optionsBuilder.Options);
+    }
+
+    public HttpClient CreateClient()
+    {
+        return _factory
             .ConfigureTestContainer(ConfigureServices)
             .CreateClient();
     }
@@ -32,10 +47,23 @@ public abstract class BaseSequenceProApiServerFixture
     {
         builder.RegisterModule(new SequenceAnalysisModule(
             _dbContainer.GetConnectionString()));
+
+        var mockUniprotAPI = new Mock<IUniprotAPI>();
+        mockUniprotAPI
+            .Setup(x => x.GetSequenceDetails(
+                It.IsAny<string>(),
+                It.IsAny<HttpClient>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(SequenceExample.P12345());
+        builder.RegisterInstance(mockUniprotAPI.Object).As<IUniprotAPI>();
     }
 
-    public HttpClient CreateClient()
+    public async Task InitializeAsync()
     {
-        return _factory.CreateClient();
+        await _dbContainer.StartAsync();
+    }
+    public async Task DisposeAsync()
+    {
+        await _dbContainer.DisposeAsync();
     }
 }

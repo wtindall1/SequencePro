@@ -2,5 +2,7 @@
 
 public interface ITokenGenerationService
 {
-    public string GenerateToken(TokenGenerationRequest request);
+    public string GenerateToken(TokenGenerationRequest request,
+        string? changeSecret = null,
+        string? changeIssuer = null);
 }

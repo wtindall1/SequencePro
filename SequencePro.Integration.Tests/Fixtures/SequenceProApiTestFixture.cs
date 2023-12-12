@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -52,6 +53,9 @@ public class SequenceProApiTestFixture : IAsyncLifetime
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(SequenceExample.P12345());
         builder.RegisterInstance(mockUniprotAPI.Object).As<IUniprotAPI>();
+
+        var outputCacheStore = new Mock<IOutputCacheStore>();
+        builder.RegisterInstance(outputCacheStore.Object).As<IOutputCacheStore>();
 
         return builder.Build();
     }

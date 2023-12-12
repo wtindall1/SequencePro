@@ -11,7 +11,9 @@ public class TokenGenerationService : ITokenGenerationService
     private const string TokenSecret = "NothingToSeeHere12345678987654321";
     private static readonly TimeSpan TokenLifetime = TimeSpan.FromHours(24);
 
-    public string GenerateToken(TokenGenerationRequest request)
+    public string GenerateToken(TokenGenerationRequest request,
+        string? changeSecret = null,
+        string? changeIssuer = null)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes(TokenSecret);
