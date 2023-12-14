@@ -12,6 +12,5 @@ public static class ApiEndpoints
         public const string Get = $"{Base}/{{IdOrUniprotId}}";
         public const string Delete = $"{Base}/{{Id}}";
     }
-
 }
 

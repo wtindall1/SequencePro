@@ -16,7 +16,7 @@ public class TokenGenerationService : ITokenGenerationService
         string? changeIssuer = null)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(TokenSecret);
+        var key = Encoding.UTF8.GetBytes(changeSecret ?? TokenSecret);
 
         var claims = new List<Claim>
         {
@@ -45,7 +45,7 @@ public class TokenGenerationService : ITokenGenerationService
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.Add(TokenLifetime),
-            Issuer = "https://id.sequencepro.com",
+            Issuer = changeIssuer ?? "https://id.sequencepro.com",
             Audience = "https://api.sequencepro.com",
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
