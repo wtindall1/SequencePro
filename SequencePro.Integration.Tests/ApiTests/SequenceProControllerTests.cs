@@ -182,6 +182,4 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         //Assert
         result.Should().BeOfType<NotFoundResult>();
     }
-
-
 }

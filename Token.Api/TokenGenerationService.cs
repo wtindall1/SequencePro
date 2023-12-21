@@ -11,10 +11,12 @@ public class TokenGenerationService : ITokenGenerationService
     private const string TokenSecret = "NothingToSeeHere12345678987654321";
     private static readonly TimeSpan TokenLifetime = TimeSpan.FromHours(24);
 
-    public string GenerateToken(TokenGenerationRequest request)
+    public string GenerateToken(TokenGenerationRequest request,
+        string? changeSecret = null,
+        string? changeIssuer = null)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.UTF8.GetBytes(TokenSecret);
+        var key = Encoding.UTF8.GetBytes(changeSecret ?? TokenSecret);
 
         var claims = new List<Claim>
         {
@@ -43,7 +45,7 @@ public class TokenGenerationService : ITokenGenerationService
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.Add(TokenLifetime),
-            Issuer = "https://id.sequencepro.com",
+            Issuer = changeIssuer ?? "https://id.sequencepro.com",
             Audience = "https://api.sequencepro.com",
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };

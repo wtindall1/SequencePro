@@ -47,7 +47,7 @@ public class UniprotAPI : IUniprotAPI
         catch (HttpRequestException ex)
         {
             _logger.LogError(ex, ex.Message);
-            throw ex;
+            throw;
         }
     }
 }
