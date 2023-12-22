@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SequencePro.Application.Validators;
-public class RequestValidator : AbstractValidator<string>
+public class CreateSequenceAnalysisRequestValidator : AbstractValidator<string>
 {
-    public RequestValidator()
+    public CreateSequenceAnalysisRequestValidator()
     {
         RuleFor(x => x)
             .NotEmpty()

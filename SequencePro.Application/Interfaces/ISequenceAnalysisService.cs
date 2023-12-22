@@ -14,7 +14,8 @@ public interface ISequenceAnalysisService
 
     Task<SequenceAnalysis?> GetByUniprotIdAsync(string uniprotId, CancellationToken token = default);
 
-    Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default);
+    Task<IEnumerable<SequenceAnalysis>> GetAllAsync(GetAllSequenceAnalysisOptions getAllOptions,
+        CancellationToken token = default);
 
     Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default);
 }

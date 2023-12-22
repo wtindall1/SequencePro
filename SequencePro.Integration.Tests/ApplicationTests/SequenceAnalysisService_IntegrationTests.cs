@@ -30,7 +30,7 @@ public class SequenceAnalysisService_IntegrationTests
     public SequenceAnalysisService_IntegrationTests()
     {
         //set up system under test
-        _requestValidator = new RequestValidator();
+        _requestValidator = new CreateSequenceAnalysisRequestValidator();
         _httpClient = new HttpClient();
         _mockLogger = new Mock<ILoggerAdapter>();
         _uniprotAPI = new UniprotAPI(_mockLogger.Object);

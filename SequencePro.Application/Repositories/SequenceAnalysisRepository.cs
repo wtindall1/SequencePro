@@ -83,13 +83,27 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
         }
     }
 
-    public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default)
+    public async Task<IEnumerable<SequenceAnalysis>> GetAllAsync(GetAllSequenceAnalysisOptions getAllOptions,
+        CancellationToken token = default)
     {
         try
         {
-            var sequenceAnalysisEntities = await _dbContext.SequenceAnalyses
-            .Include(s => s.AminoAcidCompositions)
-            .ToListAsync(token);
+            IQueryable<SequenceAnalysisEntity> query = _dbContext.SequenceAnalyses
+                .Include(s => s.AminoAcidCompositions);
+
+            if (getAllOptions.UniprotId != null)
+            {
+                query = query.Where(x => x.UniprotId == getAllOptions.UniprotId);
+            }
+
+            if (getAllOptions.SortField != null)
+            {
+                query = getAllOptions.SortOrder == SortOrder.Descending ?
+                    query.OrderByDescending(x => EF.Property<object>(x, getAllOptions.SortField)) :
+                    query.OrderBy(x => EF.Property<object>(x, getAllOptions.SortField));
+            }
+
+            var sequenceAnalysisEntities = await query.ToListAsync(token);
 
             return sequenceAnalysisEntities.Select(x => x.MapToObject());
         }

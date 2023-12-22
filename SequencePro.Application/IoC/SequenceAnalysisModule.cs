@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using SequencePro.Application.Database;
 using SequencePro.Application.Interfaces;
 using SequencePro.Application.Logging;
+using SequencePro.Application.Models;
 using SequencePro.Application.Repositories;
 using SequencePro.Application.Services;
 using SequencePro.Application.Validators;
@@ -27,9 +28,13 @@ public class SequenceAnalysisModule : Module
     {
         builder.RegisterType<UniprotAPI>().As<IUniprotAPI>();
         builder.RegisterType<SequenceAnalyser>().As<ISequenceAnalyser>();
-        builder.RegisterType<RequestValidator>().As<IValidator<string>>();
         builder.RegisterType<SequenceAnalysisRepository>().As<ISequenceAnalysisRepository>();
         builder.RegisterType<SequenceAnalysisService>().As<ISequenceAnalysisService>();
+
+        builder.RegisterType<CreateSequenceAnalysisRequestValidator>()
+            .As<IValidator<string>>();
+        builder.RegisterType<GetAllSequenceAnalysisOptionsValidator>()
+            .As<IValidator<GetAllSequenceAnalysisOptions>>();
 
         builder.RegisterType<LoggerAdapter>().AsImplementedInterfaces();
 

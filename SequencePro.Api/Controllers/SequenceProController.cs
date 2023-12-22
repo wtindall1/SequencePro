@@ -58,7 +58,9 @@ namespace SequencePro.API.Controllers
         public async Task<IActionResult> GetAll([FromQuery] GetAllSequenceAnalysisRequest request,
             CancellationToken token = default)
         {
-            var allAnalyses = await _sequenceAnalysisService.GetAllAsync(token);
+            var getAllOptions = request.MapToOptions();
+            
+            var allAnalyses = await _sequenceAnalysisService.GetAllAsync(getAllOptions, token);
 
             var response = allAnalyses.MapToResponse();
             return Ok(response);

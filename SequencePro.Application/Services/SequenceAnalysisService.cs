@@ -17,15 +17,21 @@ public class SequenceAnalysisService : ISequenceAnalysisService
     private readonly IUniprotAPI _uniprotAPI;
     private readonly ISequenceAnalyser _sequenceAnalyser;
     private readonly IValidator<string> _requestValidator;
+    private readonly IValidator<GetAllSequenceAnalysisOptions> _getAllOptionsValidator;
 
     public SequenceAnalysisService(ISequenceAnalysisRepository repository, 
-        HttpClient httpClient, IUniprotAPI uniprotAPI, ISequenceAnalyser sequenceAnalyser, IValidator<string> requestValidator)
+        HttpClient httpClient,
+        IUniprotAPI uniprotAPI,
+        ISequenceAnalyser sequenceAnalyser,
+        IValidator<string> requestValidator,
+        IValidator<GetAllSequenceAnalysisOptions> getAllOptionsValidator)
     {
         _repository = repository;
         _httpClient = httpClient;
         _uniprotAPI = uniprotAPI;
         _sequenceAnalyser = sequenceAnalyser;
         _requestValidator = requestValidator;
+        _getAllOptionsValidator = getAllOptionsValidator;
     }
 
     public async Task<SequenceAnalysis> CreateAsync(string uniprotId, CancellationToken token = default)
@@ -45,9 +51,12 @@ public class SequenceAnalysisService : ISequenceAnalysisService
         return _repository.DeleteByIdAsync(id, token);
     }
 
-    public Task<IEnumerable<SequenceAnalysis>> GetAllAsync(CancellationToken token = default)
+    public Task<IEnumerable<SequenceAnalysis>> GetAllAsync(GetAllSequenceAnalysisOptions getAllOptions,
+        CancellationToken token = default)
     {
-        return _repository.GetAllAsync(token);
+        _getAllOptionsValidator.ValidateAndThrow(getAllOptions);
+        
+        return _repository.GetAllAsync(getAllOptions, token);
     }
 
     public Task<SequenceAnalysis?> GetByIdAsync(Guid id, CancellationToken token = default)

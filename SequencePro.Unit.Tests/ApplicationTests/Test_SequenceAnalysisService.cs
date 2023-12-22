@@ -22,7 +22,7 @@ public class Test_SequenceAnalysisService
     private readonly Mock<HttpClient> _mockHttpClient;
     private readonly Mock<IUniprotAPI> _mockUniprotAPI;
     private readonly Mock<ISequenceAnalyser> _mockSequenceAnalyser;
-    private readonly Mock<RequestValidator> _mockRequestValidator;
+    private readonly Mock<CreateSequenceAnalysisRequestValidator> _mockRequestValidator;
 
     private static string _uniprotId = "P12563";
 
@@ -42,7 +42,7 @@ public class Test_SequenceAnalysisService
         _mockSequenceAnalysisRepository = new Mock<ISequenceAnalysisRepository>();
         _mockUniprotAPI = new Mock<IUniprotAPI>();
         _mockSequenceAnalyser = new Mock<ISequenceAnalyser>();
-        _mockRequestValidator = new Mock<RequestValidator>();
+        _mockRequestValidator = new Mock<CreateSequenceAnalysisRequestValidator>();
         _mockHttpClient = new Mock<HttpClient>();
 
         _sut = new SequenceAnalysisService(
