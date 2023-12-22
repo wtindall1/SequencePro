@@ -36,7 +36,6 @@ public static class ContractMapping
             SortField = request.SortBy?.Trim('+', '-'),
             SortOrder = request.SortBy is null ? SortOrder.Unsorted :
                 request.SortBy.StartsWith('+') ? SortOrder.Ascending : SortOrder.Descending
-        };
-        //test comment
+        }; //test comment
     }
 }
