@@ -1,5 +1,7 @@
 ﻿using SequencePro.Application.Models;
+using SequencePro.Contracts.Requests;
 using SequencePro.Contracts.Responses;
+using System.Net.NetworkInformation;
 
 namespace SequencePro.API.Mapping;
 
@@ -24,6 +26,16 @@ public static class ContractMapping
         {
             Items = allAnalyses.Select(MapToResponse)
         };
+    }
 
+    public static GetAllSequenceAnalysisOptions MapToOptions(this GetAllSequenceAnalysisRequest request)
+    {
+        return new GetAllSequenceAnalysisOptions
+        {
+            UniprotId = request.UniprotId,
+            SortField = request.SortBy?.Trim('+', '-'),
+            SortOrder = request.SortBy is null ? SortOrder.Unsorted :
+                request.SortBy.StartsWith('+') ? SortOrder.Ascending : SortOrder.Descending
+        };
     }
 }
