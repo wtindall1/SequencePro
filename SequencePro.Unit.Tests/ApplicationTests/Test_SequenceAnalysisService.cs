@@ -23,6 +23,7 @@ public class Test_SequenceAnalysisService
     private readonly Mock<IUniprotAPI> _mockUniprotAPI;
     private readonly Mock<ISequenceAnalyser> _mockSequenceAnalyser;
     private readonly Mock<CreateSequenceAnalysisRequestValidator> _mockRequestValidator;
+    private readonly Mock<GetAllSequenceAnalysisOptionsValidator> _mockGetAllOptionsValidator;
 
     private static string _uniprotId = "P12563";
 
@@ -44,13 +45,15 @@ public class Test_SequenceAnalysisService
         _mockSequenceAnalyser = new Mock<ISequenceAnalyser>();
         _mockRequestValidator = new Mock<CreateSequenceAnalysisRequestValidator>();
         _mockHttpClient = new Mock<HttpClient>();
+        _mockGetAllOptionsValidator = new Mock<GetAllSequenceAnalysisOptionsValidator>();
 
         _sut = new SequenceAnalysisService(
             _mockSequenceAnalysisRepository.Object,
             _mockHttpClient.Object,
             _mockUniprotAPI.Object,
             _mockSequenceAnalyser.Object,
-            _mockRequestValidator.Object
+            _mockRequestValidator.Object,
+            _mockGetAllOptionsValidator.Object
             );
     }
 
@@ -111,11 +114,13 @@ public class Test_SequenceAnalysisService
             _sequenceAnalysis,
         };
 
-        _mockSequenceAnalysisRepository.Setup(x => x.GetAllAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(analyses);
+        _mockSequenceAnalysisRepository.Setup(x => x.GetAllAsync(
+            It.IsAny<GetAllSequenceAnalysisOptions>(),
+            It.IsAny<CancellationToken>()))
+                .ReturnsAsync(analyses);
 
         //Act
-        var result = await _sut.GetAllAsync();
+        var result = await _sut.GetAllAsync(new GetAllSequenceAnalysisOptions());
 
         //Assert
         Assert.IsAssignableFrom<IEnumerable<SequenceAnalysis>>(result);

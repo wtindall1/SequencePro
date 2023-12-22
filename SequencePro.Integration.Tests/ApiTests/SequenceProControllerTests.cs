@@ -65,7 +65,7 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
         await _testDbContext.SaveChangesAsync();
 
         //Act
-        var result = await _sut.GetAll();
+        var result = await _sut.GetAll(new GetAllSequenceAnalysisRequest());
 
         //Assert
         var objectResult = result.Should().BeOfType<OkObjectResult>();
@@ -80,7 +80,7 @@ public class SequenceProControllerTests : IClassFixture<SequenceProApiTestFixtur
     public async Task GetAll_ReturnsEmptyCollection_WhenNoRecordExist()
     {
         //Act
-        var result = await _sut.GetAll();
+        var result = await _sut.GetAll(new GetAllSequenceAnalysisRequest());
 
         //Assert
         var objectResult = result.Should().BeOfType<OkObjectResult>();

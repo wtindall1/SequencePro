@@ -23,6 +23,7 @@ public class SequenceAnalysisService_IntegrationTests
     private readonly IUniprotAPI _uniprotAPI;
     private readonly ISequenceAnalyser _sequenceAnalyser;
     private readonly IValidator<string> _requestValidator;
+    private readonly IValidator<GetAllSequenceAnalysisOptions> _getAllOptionsValidator;
     private readonly TestDbManager _testDbManager;
 
     private readonly ISequenceAnalysisService _sut;
@@ -39,9 +40,17 @@ public class SequenceAnalysisService_IntegrationTests
             .UseNpgsql(_testDbConnectionString)
             .Options);
         _repository = new SequenceAnalysisRepository(_testDbContext, _mockLogger.Object);
+        _getAllOptionsValidator = new GetAllSequenceAnalysisOptionsValidator();
+
         _testDbManager = new TestDbManager(_testDbConnectionString);
 
-        _sut = new SequenceAnalysisService(_repository, _httpClient, _uniprotAPI, _sequenceAnalyser, _requestValidator);
+        _sut = new SequenceAnalysisService(
+            _repository,
+            _httpClient,
+            _uniprotAPI,
+            _sequenceAnalyser,
+            _requestValidator,
+            _getAllOptionsValidator);
     }
 
     [Fact]
@@ -131,7 +140,7 @@ public class SequenceAnalysisService_IntegrationTests
         await _testDbContext.SequenceAnalyses.ExecuteDeleteAsync();
 
         //Act
-        var result = await _sut.GetAllAsync();
+        var result = await _sut.GetAllAsync(new GetAllSequenceAnalysisOptions());
 
         //Assert
         Assert.Empty(result);
@@ -144,7 +153,7 @@ public class SequenceAnalysisService_IntegrationTests
         await _testDbManager.InitialiseDatabaseWithFiveRecordsAsync();
 
         //Act
-        var result = await _sut.GetAllAsync();
+        var result = await _sut.GetAllAsync(new GetAllSequenceAnalysisOptions());
 
         //Assert
         Assert.IsAssignableFrom<IEnumerable<SequenceAnalysis>>(result);
