@@ -17,9 +17,9 @@ public class GetAllSequenceAnalysisOptionsValidator : AbstractValidator<GetAllSe
 
     public GetAllSequenceAnalysisOptionsValidator()
     {
-        RuleFor(x => x.UniprotId)
+        RuleFor(x => x.FilterByUniprotId)
             .Must(value => value == null || value.Length == 6 || value.Length == 10)
-            .WithName("UniprotId")
+            .WithName("FilterByUniprotId")
             .WithMessage("UniprotID / Accession number should be 6 or 10 alphanumeric characters.");
 
         RuleFor(x => x.SortField)

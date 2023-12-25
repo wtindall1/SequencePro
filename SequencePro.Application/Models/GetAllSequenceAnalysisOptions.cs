@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SequencePro.Application.Models;
 public class GetAllSequenceAnalysisOptions
 {
-    public string? UniprotId { get; set; }
+    public string? FilterByUniprotId { get; set; }
 
     public string? SortField { get; set; }
 

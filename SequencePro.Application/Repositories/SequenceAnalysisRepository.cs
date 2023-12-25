@@ -91,9 +91,9 @@ public class SequenceAnalysisRepository : ISequenceAnalysisRepository
             IQueryable<SequenceAnalysisEntity> query = _dbContext.SequenceAnalyses
                 .Include(s => s.AminoAcidCompositions);
 
-            if (getAllOptions.UniprotId != null)
+            if (getAllOptions.FilterByUniprotId != null)
             {
-                query = query.Where(x => x.UniprotId == getAllOptions.UniprotId);
+                query = query.Where(x => x.UniprotId == getAllOptions.FilterByUniprotId);
             }
 
             if (getAllOptions.SortField != null)

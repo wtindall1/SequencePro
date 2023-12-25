@@ -32,7 +32,7 @@ public static class ContractMapping
     {
         return new GetAllSequenceAnalysisOptions
         {
-            UniprotId = request.UniprotId,
+            FilterByUniprotId = request.UniprotId,
             SortField = request.SortBy?.Trim('+', '-'),
             SortOrder = request.SortBy is null ? SortOrder.Unsorted :
                 request.SortBy.StartsWith('+') ? SortOrder.Ascending : SortOrder.Descending
